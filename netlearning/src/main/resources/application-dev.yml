@@ -1,7 +1,7 @@
 server:
   port: 8080
   servlet:
-    context-path: /sc
+    context-path: /learning
   tomcat:
     #tomcat最大连接数
     max-connections: 10
@@ -23,7 +23,7 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/netlearning?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
 #    url: jdbc:mysql://localhost:3306/boot?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
     username: root
-    password: 123456
+    password: 123
 #    data-username: root
 #    data-password: root
   #序列化时，属性为NULL和""的都不序列化
