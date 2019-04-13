@@ -1,0 +1,44 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /sc
+  tomcat:
+    #tomcat最大连接数
+    max-connections: 10
+    #tomcat最大线程数
+    max-threads: 10
+
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+  #mysql数据库配置
+  datasource:
+    #数据库驱动
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/netlearning?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+#    url: jdbc:mysql://localhost:3306/boot?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: 123456
+#    data-username: root
+#    data-password: root
+  #序列化时，属性为NULL和""的都不序列化
+  jackson:
+    default-property-inclusion: non_empty
+
+  jpa:
+    #制定数据库类型
+    database: mysql
+    #在日志中显示sql语句
+    show-sql: true
+    hibernate:
+      #如果数据库中存在持久化类对应的表就不创建，不存在就创建对应的表
+      ddl-auto: update
+#      ddl-auto: create-drop
+      naming:
+        #命名策略：遇到大写字母加"_"下划线的命名
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
