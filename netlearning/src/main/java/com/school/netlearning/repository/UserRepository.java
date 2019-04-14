@@ -2,6 +2,7 @@ package com.school.netlearning.repository;
 
 import com.school.netlearning.pojo.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -16,11 +17,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     User findByUserName(String userName);
 
     /**
-     * 查询所有学生
-     *
+     * 查询学生列表
      * @return
      */
-    List<User> findByState(Byte state);
+    List<User> findAll();
 
 //    @Modifying
 //    @Query("UPDATE User SET userName = :userName, sex = :sex, age = :age WHERE id = :id")

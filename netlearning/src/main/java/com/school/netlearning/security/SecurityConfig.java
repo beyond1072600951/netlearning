@@ -42,9 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //以下请求可直接通过，无需验证
 //                .antMatchers("/static", "/img/*").permitAll()
                 //以“/u”开头的需要验证通过才能访问
-                .antMatchers("/user/**", "course/**").authenticated()
+//                .antMatchers("/user/**", "course/**").authenticated()
                 //角色是“ADMIN”才能访问以下接口
-                .antMatchers("/user/findAll", "/user/addOrUp", "/course/save", "/course/update", "/course/findAll").hasAnyRole("ADMIN")
+                //.antMatchers("/user/findAll", "/user/addOrUp", "/course/save", "/course/update", "/course/findAll").hasAnyRole("ADMIN")
 //                .antMatchers("/u/**", "/upload/**").hasAnyRole("TEACHER")
 //                .antMatchers("/u/**").hasAuthority("admin")
                 // 其他都放行

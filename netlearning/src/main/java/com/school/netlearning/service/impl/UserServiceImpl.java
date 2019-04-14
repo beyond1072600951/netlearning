@@ -24,45 +24,8 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
 
     @Override
-    public User register(User user, Integer roleId) {
-        Role role = roleRepository.findFirstByIdAndState(roleId, (byte) 0);
-        List<Role> roleList = new ArrayList<>();
-        roleList.add(role);
-        user.setRoleList(roleList);
-        return userRepository.save(user);
-    }
-
-    @Override
-    public User findById(Integer id) throws Exception {
-        Optional<User> optional = userRepository.findById(id);
-        return optional.get();
-    }
-
-    @Override
-    public List<User> findAll(String authority) throws Exception {
-        List<User> userList = userRepository.findByState((byte) 0);
-        return userList.stream().filter(user -> {
-            List<Role> roleList = user.getRoleList();
-            for (Role role : roleList) {
-                return authority.equals(role.getAuthority());
-            }
-            return false;
-        }).collect(Collectors.toList());
-    }
-
-    @Override
-    @Transactional
-    public User updateUser(User user) throws Exception {
-        Optional<User> optional = userRepository.findById(user.getId());
-        User u = optional.get();
-        if (null != user.getUserName()) {
-            u.setUserName(user.getUserName());
-        }
-        if (null != user.getPassWord()) {
-            u.setPassWord(user.getPassWord());
-        }
-        u.setPhone(user.getPhone());
-        userRepository.save(u);
-        return null;
+    public List<User> findAll() {
+        List<User> userList = userRepository.findAll();
+        return userList;
     }
 }
