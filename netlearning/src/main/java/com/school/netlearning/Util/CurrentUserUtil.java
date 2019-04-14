@@ -6,8 +6,8 @@ import java.util.List;
 public class CurrentUserUtil {
 
     //获取当前登录人的ID
-    public static Long getUserId(HttpServletRequest request) {
-        return (Long) request.getAttribute("current_user_id");
+    public static Integer getUserId(HttpServletRequest request) {
+        return (Integer) request.getAttribute("current_user_id");
     }
 
     //获取当前登录人的角色

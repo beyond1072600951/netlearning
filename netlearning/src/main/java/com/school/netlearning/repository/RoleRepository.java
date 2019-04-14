@@ -3,7 +3,7 @@ package com.school.netlearning.repository;
 import com.school.netlearning.pojo.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RoleRepository extends JpaRepository<Role, Long> {
+public interface RoleRepository extends JpaRepository<Role, Integer> {
 
-    Role findFirstByIdAndState(Long id, Byte state);
+    Role findFirstByIdAndState(Integer id, Byte state);
 }

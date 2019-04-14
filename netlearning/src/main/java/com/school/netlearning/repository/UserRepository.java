@@ -5,15 +5,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 
     /**
      * 根据登录名查询用户
      *
-     * @param loginName 登录账号
+     * @param userName 登录账号
      * @return
      */
-    User findByLoginName(String loginName);
+    User findByUserName(String userName);
 
     /**
      * 查询所有学生

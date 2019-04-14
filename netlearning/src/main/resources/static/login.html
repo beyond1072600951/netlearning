@@ -1,10 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta charset="utf-8"/>
+    <title>课程学习管理平台</title>
+    <base target="_blank"/>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
 
+        a {
+            color: White
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: url(./img/grass.png) no-repeat center;
+            font-size: 13px;
+        }
+
+        img {
+            border: 0;
+        }
+
+        .lg {
+            width: 468px;
+            height: 468px;
+            margin: 100px auto;
+            background: url(./img/login_bg.png) no-repeat;
+        }
+
+        .lg_top {
+            height: 200px;
+            width: 468px;
+        }
+
+        .lg_main {
+            width: 400px;
+            height: 180px;
+            margin: 0 25px;
+        }
+
+        .lg_m_1 {
+            width: 290px;
+            height: 100px;
+            padding: 60px 55px 20px 55px;
+        }
+
+        .ur {
+            height: 37px;
+            border: 0;
+            color: #666;
+            width: 236px;
+            margin: 4px 28px;
+            background: url(./img/user.png) no-repeat;
+            padding-left: 10px;
+            font-size: 16pt;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .pw {
+            height: 37px;
+            border: 0;
+            color: #666;
+            width: 236px;
+            margin: 4px 28px;
+            background: url(./img/password.png) no-repeat;
+            padding-left: 10px;
+            font-size: 16pt;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .bn {
+            width: 330px;
+            height: 72px;
+            background: url(./img/enter.png) no-repeat;
+            border: 0;
+            display: block;
+            font-size: 18px;
+            color: #FFF;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+        }
+
+        .lg_foot {
+            height: 80px;
+            width: 330px;
+            padding: 6px 68px 0 68px;
+        }
+    </style>
+    <script src="js/core/jquery.3.2.1.min.js"></script>
+    <script src="js/core/vue.min.js"></script>
+    <script src="js/plugins/vue/vue-resource.min.js"></script>
+</head>
+
+<body class="b">
+<div class="lg" id="login">
+    <form action="#" method="POST">
+        <div class="lg_top"></div>
+        <div class="lg_main">
+            <div class="lg_m_1">
+
+                <input name="username" value="" class="ur" ref="ln"/>
+                <input name="password" type="password" value="" class="pw" ref="pd"/>
+
+            </div>
+        </div>
+        <div class="lg_foot">
+            <input type="button" value="点这里登录" class="bn" @click="submit()"/></div>
+    </form>
+</div><!--
+<div style="text-align:center;">
+</div>-->
 </body>
+<script>
+    window.onload = function () {
+        new Vue({
+            el: '#login',
+            methods: {
+                submit: function () {
+                    if (!this.$refs.ln.value) {
+                        alert("请填写用户名！");
+                        return;
+                    }
+                    if (!this.$refs.pd.value) {
+                        alert("请填写密码！");
+                        return;
+                    }
+
+                    this.$http.post('/learning/login', {
+                        ln: this.$refs.ln.value,
+                        pd: this.$refs.pd.value
+                    }, {emulateJSON: true}).then(function (res) {
+                        if (res.body.state == "success") {
+                            $.cookie("token", res.body.data.token);
+                            window.location.href = "/learning/index";
+                        } else {
+                            alert("用户名或密码错误！")
+                        }
+                    }, function () {
+                        alert("请求失败！");
+                    });
+                }
+            }
+        })
+    }
+</script>
 </html>

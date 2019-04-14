@@ -1,6 +1,6 @@
 var token = $.cookie("token");
 // $.removeCookie("token");
-var startUrl = "/sc";
+var startUrl = "/learning";
 var globalvm = new Vue({
     methods: {
         ajaxGet: function (url, params, callback) {

@@ -51,7 +51,7 @@ public class UserController {
      * @throws Exception
      */
     @GetMapping(value = "/findById")
-    public Result findById(HttpServletRequest request, @RequestParam(value = "i", required = false) Long id) throws Exception {
+    public Result findById(HttpServletRequest request, @RequestParam(value = "i", required = false) Integer id) throws Exception {
         if (CurrentUserUtil.isRole(request, "STUDENT") || null == id) {
             id = CurrentUserUtil.getUserId(request);
         }
@@ -88,29 +88,20 @@ public class UserController {
      * @throws Exception
      */
     @PostMapping(value = "/addOrUp")
-    public Result updateUser(HttpServletRequest request, @RequestParam(value = "i", required = false) Long userId, @RequestParam(value = "un") String userName,
-                             @RequestParam(value = "s", required = false) Byte sex, @RequestParam(value = "a") Byte age,
-                             @RequestParam(value = "ln", required = false) String loginName, @RequestParam(value = "pd", required = false) String passWord,
-                             @RequestParam(value = "ro", required = false) Long roleId) throws Exception {
+    public Result updateUser(HttpServletRequest request, @RequestParam(value = "i", required = false) Integer userId, @RequestParam(value = "un") String userName,
+                             @RequestParam(value = "pd", required = false) String passWord, @RequestParam(value = "ro", required = false) Integer roleId) throws Exception {
         if (null == userId && null != roleId && null != passWord) {
             User user = new User();
-            user.setLoginName(loginName);
             user.setUserName(userName);
-            user.setSex(sex);
-            user.setAge(age);
             user.setPassWord(bCryptPasswordEncoder.encode(passWord));
             user.setState((byte) 0);
             user.setCreateDate(new Date());
-            user.setUpdateDate(new Date());
-            user.setLastPasswordResetDate(new Date());
             User u = userService.register(user, roleId);
             return ResultUtil.success(u);
         } else if (null != userId) {
             User user = new User();
             user.setId(userId);
             user.setUserName(userName);
-            user.setSex(sex);
-            user.setAge(age);
             userService.updateUser(user);
         }
         return ResultUtil.success(null);
@@ -121,29 +112,23 @@ public class UserController {
      *
      * @param request
      * @param userName
-     * @param password
-     * @param sex
-     * @param age
      * @param phone
      * @return
      * @throws Exception
      */
     @PostMapping(value = "/upInfo")
     public Result updateMyInfo(HttpServletRequest request, @RequestParam(value = "un") String userName, @RequestParam(value = "pd", required = false) String passWord,
-                               @RequestParam(value = "s", required = false) Byte sex, @RequestParam(value = "a", required = false) Byte age,
                                @RequestParam(value = "ph", required = false) String phone) throws Exception {
         /*if (!CurrentUserUtil.isRole(request, "ADMIN") && !CurrentUserUtil.getUserId(request).equals(userId)) {
             return ResultUtil.fail("你没有此次操作权限！");
         }*/
         User user = new User();
-        Long userId = CurrentUserUtil.getUserId(request);
+        Integer userId = CurrentUserUtil.getUserId(request);
         user.setId(userId);
         user.setUserName(userName);
         if (!StringUtils.isEmpty(passWord)) {
             user.setPassWord(bCryptPasswordEncoder.encode(passWord));
         }
-        user.setSex(sex);
-        user.setAge(age);
         user.setPhone(phone);
         userService.updateUser(user);
         return ResultUtil.success(null);

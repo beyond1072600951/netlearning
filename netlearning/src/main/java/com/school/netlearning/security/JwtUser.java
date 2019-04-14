@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class JwtUser implements UserDetails {
-    private Long id;
+    private Integer id;
     private String username;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
@@ -22,7 +22,7 @@ public class JwtUser implements UserDetails {
     // 写一个能直接使用user创建jwtUser的构造器
     public JwtUser(User user) {
         id = user.getId();
-        username = user.getLoginName();
+        username = user.getUserName();
         password = user.getPassWord();
         List<Role> roleList = user.getRoleList();
         //一个用户存在多个角色
@@ -34,7 +34,7 @@ public class JwtUser implements UserDetails {
 //        authorities = Collections.singleton(new SimpleGrantedAuthority(roleList.get(0).getAuthority()));
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 

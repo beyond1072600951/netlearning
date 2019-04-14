@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface UserService {
 
-    User register(User user, Long roleId) throws Exception;
+    User register(User user, Integer roleId) throws Exception;
 
-    User findById(Long id) throws Exception;
+    User findById(Integer id) throws Exception;
 
     List<User> findAll(String authority) throws Exception;
 

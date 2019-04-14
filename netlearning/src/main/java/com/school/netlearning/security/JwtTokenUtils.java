@@ -33,7 +33,7 @@ public class JwtTokenUtils {
     private static final String CURRENT_USER_ID = "current_user_id";
 
     // 创建token
-    public static String createToken(Long id, String username, List<String> roleList, boolean isRememberMe) {
+    public static String createToken(Integer id, String username, List<String> roleList, boolean isRememberMe) {
         long expiration = isRememberMe ? EXPIRATION_REMEMBER : EXPIRATION;
         Map<String, Object> map = new HashMap<>();
         map.put(ROLE_CLAIMS, roleList);
