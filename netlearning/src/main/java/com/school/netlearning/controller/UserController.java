@@ -29,9 +29,45 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @RequestMapping(value = "/userList")
-    public List<User> findAll(){
+    @GetMapping(value = "/userList")
+    public Result findAll() {
         List<User> userList = userService.findAll();
-        return userList;
+        Result result = ResultUtil.success(userList);
+        return result;
+    }
+
+    @PostMapping(value = "/saveUser")
+    public Result saveUser(User user) {
+        User u = userService.addUser(user);
+        Result result = ResultUtil.success();
+        return result;
+    }
+
+    @PostMapping(value = "/updataIsPost")
+    public Result updataIsPost(Integer id, String ispost) {
+        userService.updataIsPost(id, ispost);
+        Result result = ResultUtil.success();
+        return result;
+    }
+
+    @PostMapping(value = "/updataIsReply")
+    public Result updataIsReply(Integer id, String isreply) {
+        userService.updataIsReply(id, isreply);
+        Result result = ResultUtil.success();
+        return result;
+    }
+
+    @GetMapping(value = "/deletUser")
+    public Result deletUser(Integer id){
+        userService.deletUserById(id);
+        Result result = ResultUtil.success();
+        return result;
+    }
+
+    @GetMapping(value = "/findByNameContaining")
+    public Result findByNameContaining(@RequestParam(value = "userName") String userName) {
+        List<User> byNameContaining = userService.findByNameContaining(userName);
+        Result result = ResultUtil.success(byNameContaining);
+        return result;
     }
 }

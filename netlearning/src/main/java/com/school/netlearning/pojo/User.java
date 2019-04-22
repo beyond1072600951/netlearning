@@ -36,11 +36,26 @@ public class User implements Serializable {
     //当前用户状态（0：启用(默认)；1：禁用；2：删除）
     @Column(name = "state")
     @JsonIgnore
-    private Byte state;
+    private Integer state;
 
     //    @Null
     @Column(name = "registime")
     private Date createDate;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "education")
+    private String education;
+
+    @Column(name = "learningage")
+    private String learningage;
+
+    @Column(name = "ispost")
+    private String ispost;
+
+    @Column(name = "isreply")
+    private String isreply;
 
     //    @Null
     @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
@@ -79,11 +94,11 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
-    public Byte getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(Byte state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
@@ -93,6 +108,46 @@ public class User implements Serializable {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
+    }
+
+    public String getLearningage() {
+        return learningage;
+    }
+
+    public void setLearningage(String learningage) {
+        this.learningage = learningage;
+    }
+
+    public String getIspost() {
+        return ispost;
+    }
+
+    public void setIspost(String ispost) {
+        this.ispost = ispost;
+    }
+
+    public String getIsreply() {
+        return isreply;
+    }
+
+    public void setIsreply(String isreply) {
+        this.isreply = isreply;
     }
 
     public List<Role> getRoleList() {

@@ -17,11 +17,16 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     User findByUserName(String userName);
 
     /**
-     * 查询学生列表
+     * 查询用户列表
      * @return
      */
     List<User> findAll();
 
+    List<User> findByNameContaining(String userName);
+
+    /**删除用户
+     *
+     */
 //    @Modifying
 //    @Query("UPDATE User SET userName = :userName, sex = :sex, age = :age WHERE id = :id")
 //    @Query("UPDATE user u SET u.user_name = :userName, u.sex = :sex, u.age = :age WHERE u.id = :id")
