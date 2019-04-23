@@ -178,7 +178,7 @@
                     <td>{{index+1}}</td>
                     <td>{{news.name}}</td>
                     <td>{{news.content}}</td>
-                    <td>{{news.userId}}</td>
+                    <td>{{}}</td>
                     <td style="width: 245px;">
                         <button @click="deletNewsClick($event)" v-bind:newsId="news.id">删除</button>
                     </td>

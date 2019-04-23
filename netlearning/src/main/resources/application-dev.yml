@@ -21,7 +21,7 @@ spring:
     #数据库驱动
     driver-class-name: com.mysql.jdbc.Driver
 #    url: jdbc:mysql://127.0.0.1:3306/netlearning?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
-    url: jdbc:mysql://192.168.1.110:3306/netlearning?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
+    url: jdbc:mysql://127.0.0.1:3306/netlearning?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
     username: root
     password: 123
 #    data-username: root

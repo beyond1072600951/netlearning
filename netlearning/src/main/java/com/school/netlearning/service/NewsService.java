@@ -11,4 +11,6 @@ public interface NewsService {
     public News addNews(News news);  //添加新闻通知
 
     public void deleteNewsById(Integer id);   //删除新闻通知
+
+//    public  List<News> findByNameContaining(String name);
 }

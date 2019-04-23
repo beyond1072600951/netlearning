@@ -35,7 +35,11 @@ var stuManage = new Vue({
         phone: "",
         ispost: "1",
         isreply: "1",
-        select: ""
+        select: "",
+
+        newsList:[],
+        addNewsClick:false,
+        selectNews:""
     },
     methods: {
         addClick: function () {

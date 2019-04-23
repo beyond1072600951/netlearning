@@ -30,11 +30,17 @@ public class NewsServiceImpl implements NewsService{
 
     @Override
     public News addNews(News news) {
-        return null;
+        News save = newsRepository.save(news);
+        return save;
     }
 
     @Override
     public void deleteNewsById(Integer id) {
-
+        newsRepository.deleteById(id);
     }
+
+//    @Override
+//    public List<News> findByNameContaining(String name) {
+//        return NewsRepository.findByNameContaining(name);
+//    }
 }

@@ -7,6 +7,7 @@ import com.school.netlearning.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,4 +29,22 @@ public class NewsController {
         Result result = ResultUtil.success(newsList);
         return result;
     }
+
+    @PostMapping(value = "/saveNews")
+    public Result saveNews(News news){
+        News n = newsService.addNews(news);
+        Result result = ResultUtil.success();
+        return result;
+    }
+
+    @GetMapping(value = "/deletNews")
+    public Result deletNews(Integer id){
+        newsService.deleteNewsById(id);
+        Result result = ResultUtil.success();
+        return result;
+    }
+
+
+
+
 }
