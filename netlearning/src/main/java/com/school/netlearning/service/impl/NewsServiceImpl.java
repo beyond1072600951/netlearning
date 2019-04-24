@@ -39,8 +39,9 @@ public class NewsServiceImpl implements NewsService{
         newsRepository.deleteById(id);
     }
 
-//    @Override
-//    public List<News> findByNameContaining(String name) {
-//        return NewsRepository.findByNameContaining(name);
-//    }
+    @Override
+    public List<News> findByNameContaining(String name) {
+        List<News> list = newsRepository.findByNameContaining(name);
+        return list;
+    }
 }

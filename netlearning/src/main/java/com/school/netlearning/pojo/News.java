@@ -18,8 +18,8 @@ public class News implements Serializable{
     @Column(name = "content")
     private  String content;
 
-    @Column(name = "user_id")
-    private Integer userId;
+//    @JoinColumn(name = "user_id",referencedColumnName = "id")
+//    private String user_name;
 
     public Integer getId() {
         return id;
@@ -45,11 +45,11 @@ public class News implements Serializable{
         this.content = content;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+//    public String getUser_name() {
+//        return user_name;
+//    }
+//
+//    public void setUser_name(String user_name) {
+//        this.user_name = user_name;
+//    }
 }
