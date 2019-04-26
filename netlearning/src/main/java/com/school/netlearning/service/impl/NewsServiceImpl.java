@@ -27,10 +27,17 @@ public class NewsServiceImpl implements NewsService{
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+//    @Override
+//    public List<User> findAll() {
+//        List<User> userList = userRepository.findAll();
+//        return userList;
+//    }
+
+
     @Override
-    public List<User> findAll() {
-        List<User> userList = userRepository.findAll();
-        return userList;
+    public List<News> findAll() {
+        List<News> newsList = newsRepository.findAll();
+        return newsList;
     }
 
     @Override

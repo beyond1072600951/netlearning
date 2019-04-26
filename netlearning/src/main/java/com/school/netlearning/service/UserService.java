@@ -16,5 +16,8 @@ public interface UserService {
 
     public void deletUserById(Integer id);  //删除用户
 
+    public User findUserById(Integer id);
+
+
     public  List<User> findByNameContaining(String userName);
 }
