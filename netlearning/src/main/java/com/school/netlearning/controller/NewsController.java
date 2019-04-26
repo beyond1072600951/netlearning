@@ -1,6 +1,7 @@
 package com.school.netlearning.controller;
 
 import com.school.netlearning.pojo.News;
+import com.school.netlearning.pojo.User;
 import com.school.netlearning.result.Result;
 import com.school.netlearning.result.ResultUtil;
 import com.school.netlearning.service.NewsService;
@@ -22,7 +23,7 @@ public class NewsController {
 
     @GetMapping(value = "/newsList")
     public Result findAll(){
-        List<News> newsList = newsService.findAll();
+        List<User> newsList = newsService.findAll();
         Result result = ResultUtil.success(newsList);
         return result;
     }

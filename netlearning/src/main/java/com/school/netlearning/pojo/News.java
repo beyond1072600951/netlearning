@@ -18,8 +18,9 @@ public class News implements Serializable{
     @Column(name = "content")
     private  String content;
 
-//    @JoinColumn(name = "user_id",referencedColumnName = "id")
-//    private String user_name;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, optional = false)//optional = false表示user不能为空
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Integer getId() {
         return id;
@@ -45,11 +46,11 @@ public class News implements Serializable{
         this.content = content;
     }
 
-//    public String getUser_name() {
-//        return user_name;
-//    }
-//
-//    public void setUser_name(String user_name) {
-//        this.user_name = user_name;
-//    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

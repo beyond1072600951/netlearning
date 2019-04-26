@@ -176,7 +176,6 @@ var stuManage = new Vue({
             });
         },
         createdNews: function () {
-            var t = this;
             this.initNewsList();
         }
     },

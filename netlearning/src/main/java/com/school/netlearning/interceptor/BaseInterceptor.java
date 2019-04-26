@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * 自定义拦截器
  */
 @Component
-public class BaseInterceptor implements HandlerInterceptor {
+public class  BaseInterceptor implements HandlerInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(BaseInterceptor.class);
 

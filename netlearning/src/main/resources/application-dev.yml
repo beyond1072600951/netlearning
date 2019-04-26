@@ -29,6 +29,7 @@ spring:
   #序列化时，属性为NULL和""的都不序列化
   jackson:
     default-property-inclusion: non_empty
+   
 
   jpa:
     #制定数据库类型
