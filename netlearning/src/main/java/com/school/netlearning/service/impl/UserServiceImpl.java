@@ -68,4 +68,9 @@ public class UserServiceImpl implements UserService {
     public List<User> findByNameContaining(String userName) {
         return userRepository.findByNameContaining(userName);
     }
+
+    @Override
+    public User findUserById(Integer id) {
+        return userRepository.findUserById(id);
+    }
 }

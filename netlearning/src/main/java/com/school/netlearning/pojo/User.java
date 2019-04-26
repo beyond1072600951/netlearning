@@ -65,8 +65,8 @@ public class User implements Serializable {
     @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private List<Role> roleList;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<News> newsList;  //该用户发布的新闻通知列表
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<News> newsList;  //该用户发布的新闻通知列表
 
     public Integer getId() {
         return id;
@@ -164,11 +164,11 @@ public class User implements Serializable {
         this.roleList = roleList;
     }
 
-    public List<News> getNewsList() {
-        return newsList;
-    }
-
-    public void setNewsList(List<News> newsList) {
-        this.newsList = newsList;
-    }
+//    public List<News> getNewsList() {
+//        return newsList;
+//    }
+//
+//    public void setNewsList(List<News> newsList) {
+//        this.newsList = newsList;
+//    }
 }

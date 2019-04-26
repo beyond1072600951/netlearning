@@ -5,6 +5,8 @@ import com.school.netlearning.pojo.User;
 import com.school.netlearning.result.Result;
 import com.school.netlearning.result.ResultUtil;
 import com.school.netlearning.service.NewsService;
+import com.school.netlearning.service.UserService;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +21,20 @@ public class NewsController {
     private NewsService newsService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+//    @GetMapping(value = "/newsList")
+//    public Result findAll(){
+//        List<User> newsList = newsService.findAll();
+//        Result result = ResultUtil.success(newsList);
+//        return result;
+//    }
     @GetMapping(value = "/newsList")
     public Result findAll(){
-        List<User> newsList = newsService.findAll();
+        List<News> newsList = newsService.findAll();
         Result result = ResultUtil.success(newsList);
         return result;
     }

@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface NewsService {
 
-    public List<User> findAll();  //查询所有新闻通知
+//    public List<User> findAll();  //查询所有新闻通知
+    public List<News> findAll();
 
     public News addNews(News news);  //添加新闻通知
 
