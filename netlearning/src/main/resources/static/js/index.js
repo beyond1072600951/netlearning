@@ -1,19 +1,26 @@
 var navigation = new Vue({
-   el: "#navigation",
-   data :{
-
-   },
-    methods:{
-        userClick:function (index) {
-            if(0==index){
+    el: "#navigation",
+    data: {},
+    created: function () {
+        this.initMyInfo();
+    },
+    methods: {
+        initMyInfo: function () {
+            var t = this;
+            globalvm.ajaxGet("/user/findById", {}, function (data) {
+                stuManage.currentUserName = data.name;
+            });
+        },
+        userClick: function (index) {
+            if (0 == index) {
                 stuManage.show = true;
-            }else {
+            } else {
                 stuManage.show = false;
             }
-            if(3==index){
+            if (3 == index) {
                 stuManage.news = true;
                 stuManage.createdNews();
-            }else {
+            } else {
                 stuManage.news = false;
             }
         }
@@ -39,14 +46,16 @@ var stuManage = new Vue({
         select: "",
 
         //news
-        news :false,
-        newsList:[],
+        news: false,
+        newsList: [],
         addNews: false,
-        addNewstitle:"添加新闻通知",
+        addNewstitle: "添加新闻通知",
 
-        newsName:"",
-        content:"",
-        selectNews:""
+        newsName: "",
+        content: "",
+        selectNews: "",
+
+        currentUserName : ""
     },
     methods: {
         addClick: function () {
@@ -110,7 +119,7 @@ var stuManage = new Vue({
         selectClick: function () {
             var t = this;
             var userName = t.select;
-            globalvm.ajaxGet("/user/findByNameContaining",{userName: userName}, function (data) {
+            globalvm.ajaxGet("/user/findByNameContaining", {userName: userName}, function (data) {
                 t.userList = data;
             })
         },
@@ -118,7 +127,6 @@ var stuManage = new Vue({
         initList: function () {
             var t = this;
             globalvm.ajaxGet("/user/userList", {}, function (data) {
-                console.log(data);
                 t.userList = data;
             })
         },
@@ -134,7 +142,7 @@ var stuManage = new Vue({
             if (t.newsName && t.content) {
                 params = {
                     name: t.newsName,
-                   content: t.content
+                    content: t.content
                 };
                 globalvm.ajaxPost("/news/saveNews", params, function (data) {
                     t.news = true;
@@ -185,7 +193,7 @@ var stuManage = new Vue({
 
 
 });
-stuManage.$watch('select', function(nval, oval) {
+stuManage.$watch('select', function (nval, oval) {
     stuManage.selectClick();
 })
 

@@ -45,6 +45,7 @@ public class UserController {
 
     @PostMapping(value = "/updataIsPost")
     public Result updataIsPost(Integer id, String ispost) {
+
         userService.updataIsPost(id, ispost);
         Result result = ResultUtil.success();
         return result;
@@ -69,5 +70,22 @@ public class UserController {
         List<User> byNameContaining = userService.findByNameContaining(userName);
         Result result = ResultUtil.success(byNameContaining);
         return result;
+    }
+
+    /**
+     * 根据ID查询用户详情，学生只能查看自己的信息
+     *
+     * @param request
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    @GetMapping(value = "/findById")
+    public Result findById(HttpServletRequest request, @RequestParam(value = "i", required = false) Integer id) throws Exception {
+        if (CurrentUserUtil.isRole(request, "STUDENT") || null == id) {
+            id = CurrentUserUtil.getUserId(request);
+        }
+        User user = userService.findUserById(id);
+        return ResultUtil.success(user);
     }
 }

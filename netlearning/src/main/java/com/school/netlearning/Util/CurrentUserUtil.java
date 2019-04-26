@@ -7,7 +7,8 @@ public class CurrentUserUtil {
 
     //获取当前登录人的ID
     public static Integer getUserId(HttpServletRequest request) {
-        return (Integer) request.getAttribute("current_user_id");
+        Object current_user_id = request.getAttribute("current_user_id");
+        return Integer.parseInt(request.getAttribute("current_user_id").toString());
     }
 
     //获取当前登录人的角色

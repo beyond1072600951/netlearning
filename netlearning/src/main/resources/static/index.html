@@ -142,9 +142,9 @@
                                     <div class="input-group form-group-no-border input-lg text-center"
                                          style="padding-top: 30px;">
                                         <a href="#" class="btn btn-primary btn-round btn-lg"
-                                           style="background: cadetblue;" v-on:click="makeSure">确 认</a>
+                                           style="" v-on:click="makeSure">确 认</a>
                                         <a href="#" class="btn btn-primary btn-round btn-lg"
-                                           style="margin-left: 347px;background: cadetblue;"
+                                           style="margin-left: 347px;"
                                            v-on:click="cancelEdit">取 消</a>
                                     </div>
                                 </div>
@@ -178,7 +178,7 @@
                     <td>{{index+1}}</td>
                     <td>{{news.name}}</td>
                     <td>{{news.content}}</td>
-                    <td>{{}}</td>
+                    <td>{{currentUserName}}</td>
                     <td style="width: 245px;">
                         <button @click="deletNewsClick($event)" v-bind:newsId="news.id">删除</button>
                     </td>
@@ -210,12 +210,19 @@
                                                 <input type="text" class="form-control" ref="ln" v-model="content">
                                             </span>
                                         </div>
+                                        <div class="input-group form-group-no-border input-lg"
+                                             style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">添加人</i>
+                                                <input type="text" class="form-control" ref="ln" v-model="currentUserName">
+                                            </span>
+                                        </div>
                                         <div class="input-group form-group-no-border input-lg text-center"
                                              style="padding-top: 30px;">
                                             <a href="#" class="btn btn-primary btn-round btn-lg"
-                                               style="background: cadetblue;" v-on:click="makeSureNews">确 认</a>
+                                               style="" v-on:click="makeSureNews">确 认</a>
                                             <a href="#" class="btn btn-primary btn-round btn-lg"
-                                               style="margin-left: 347px;background: cadetblue;"
+                                               style="margin-left: 347px;"
                                                v-on:click="cancelEditNews">取 消</a>
                                         </div>
                                     </div>
