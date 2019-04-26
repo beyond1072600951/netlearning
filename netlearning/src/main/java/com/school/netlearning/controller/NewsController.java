@@ -1,15 +1,13 @@
 package com.school.netlearning.controller;
 
 import com.school.netlearning.pojo.News;
+import com.school.netlearning.pojo.User;
 import com.school.netlearning.result.Result;
 import com.school.netlearning.result.ResultUtil;
 import com.school.netlearning.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,7 +23,7 @@ public class NewsController {
 
     @GetMapping(value = "/newsList")
     public Result findAll(){
-        List<News> newsList = newsService.findAll();
+        List<User> newsList = newsService.findAll();
         Result result = ResultUtil.success(newsList);
         return result;
     }
@@ -44,7 +42,10 @@ public class NewsController {
         return result;
     }
 
-
-
-
+    @GetMapping(value = "/findByNameContaining")
+    public Result findByNameContaining(@RequestParam(value = "name") String name){
+        List<News> byNameContaining = newsService.findByNameContaining(name);
+        Result result = ResultUtil.success(byNameContaining);
+        return result;
+    }
 }

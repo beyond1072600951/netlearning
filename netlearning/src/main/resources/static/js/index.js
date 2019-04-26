@@ -12,6 +12,7 @@ var navigation = new Vue({
             }
             if(3==index){
                 stuManage.news = true;
+                stuManage.createdNews();
             }else {
                 stuManage.news = false;
             }
@@ -21,10 +22,10 @@ var navigation = new Vue({
 var stuManage = new Vue({
     el: "#userManage",
     data: {
+        //user
         userList: [],
 
         show: true,
-        news :false,
         addView: false,
         addtitle: "添加学生",
 
@@ -37,8 +38,14 @@ var stuManage = new Vue({
         isreply: "1",
         select: "",
 
+        //news
+        news :false,
         newsList:[],
-        addNewsClick:false,
+        addNews: false,
+        addNewstitle:"添加新闻通知",
+
+        newsName:"",
+        content:"",
         selectNews:""
     },
     methods: {
@@ -68,6 +75,12 @@ var stuManage = new Vue({
             } else {
 
             }
+        },
+        cancelEdit: function () {
+            var t = this;
+            t.show = true;
+            t.addView = false;
+            t.initList();
         },
         deletClick: function (event) {
             var t = this;
@@ -101,36 +114,80 @@ var stuManage = new Vue({
                 t.userList = data;
             })
         },
-        cancelEdit: function () {
 
-        },
         initList: function () {
             var t = this;
             globalvm.ajaxGet("/user/userList", {}, function (data) {
                 console.log(data);
                 t.userList = data;
-            });
+            })
         },
 
+        addNewsClick: function () {
+            var t = this;
+            t.news = false;
+            t.addNews = true;
+        },
+        makeSureNews: function () {
+            var t = this;
+            var params;
+            if (t.newsName && t.content) {
+                params = {
+                    name: t.newsName,
+                   content: t.content
+                };
+                globalvm.ajaxPost("/news/saveNews", params, function (data) {
+                    t.news = true;
+                    t.addNews = false;
+                    t.initNewsList();
+                });
+            } else {
+
+            }
+        },
+        cancelEditNews: function () {
+            this.news = true;
+            this.addNews = false;
+            this.initNewsList();
+        },
+
+        deletNewsClick: function (event) {
+            var t = this;
+            var newsId = $(event.currentTarget).attr("newsId");
+            globalvm.ajaxGet("/news/deletNews", {id: newsId}, function () {
+                t.initNewsList();
+            })
+        },
+
+        selectNewsClick: function () {
+            var t = this;
+            var name = t.selectNews;
+
+            globalvm.ajaxGet("/news/findByNameContaining", {name: name}, function (data) {
+                t.newsList = data;
+            })
+        },
+
+
+        initNewsList: function () {
+            var t = this;
+            globalvm.ajaxGet("/news/newsList", {}, function (data) {
+                t.newsList = data;
+            });
+        },
+        createdNews: function () {
+            this.initNewsList();
+        }
     },
     created: function () {
         this.initList();
-    }
+    },
+
+
 });
 stuManage.$watch('select', function(nval, oval) {
     stuManage.selectClick();
-});
-/*var courseManage;
-courseManage = new Vue({
-    e1:"#courseManage",
-    data:{
+})
 
-    },
-    methods:{
-        addClick: function () {
-            var t = this;
-            t.show = false;
-            t.courseManage = true;
-        },
-    },
-})*/
+
+

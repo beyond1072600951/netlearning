@@ -178,13 +178,54 @@
                     <td>{{index+1}}</td>
                     <td>{{news.name}}</td>
                     <td>{{news.content}}</td>
-                    <td>{{}}</td>
+                    <td>{{user.name}}</td>
                     <td style="width: 245px;">
                         <button @click="deletNewsClick($event)" v-bind:newsId="news.id">删除</button>
                     </td>
                 </tbody>
             </table>
         </dev>
+        <div class="container-fluid" id="editNews" v-show="addNews">
+            <div class="row">
+                <!-- column -->
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-block">
+                            <h2 class="card-title" style="padding-top: 10px;padding-left: 10px;text-align: center;">
+                                {{addNewstitle}}</h2>
+                            <div class="table-responsive">
+                                <form class="form" method="" action="">
+                                    <div class="content" style="text-align: center;">
+                                        <div class="input-group form-group-no-border input-lg"
+                                             style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">新闻主题</i>
+                                                <input type="text" class="form-control" ref="ln" v-model="newsName">
+                                            </span>
+                                        </div>
+                                        <div class="input-group form-group-no-border input-lg"
+                                             style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">新闻内容</i>
+                                                <input type="text" class="form-control" ref="ln" v-model="content">
+                                            </span>
+                                        </div>
+                                        <div class="input-group form-group-no-border input-lg text-center"
+                                             style="padding-top: 30px;">
+                                            <a href="#" class="btn btn-primary btn-round btn-lg"
+                                               style="background: cadetblue;" v-on:click="makeSureNews">确 认</a>
+                                            <a href="#" class="btn btn-primary btn-round btn-lg"
+                                               style="margin-left: 347px;background: cadetblue;"
+                                               v-on:click="cancelEditNews">取 消</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
