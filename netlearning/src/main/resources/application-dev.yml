@@ -43,3 +43,7 @@ spring:
       naming:
         #命名策略：遇到大写字母加"_"下划线的命名
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.school.netlearning.pojo

@@ -1,6 +1,6 @@
 package com.school.netlearning.service.impl;
 
-import com.school.netlearning.pojo.Role;
+import com.school.netlearning.mapper.UserMapper;
 import com.school.netlearning.pojo.User;
 import com.school.netlearning.repository.RoleRepository;
 import com.school.netlearning.repository.UserRepository;
@@ -8,13 +8,9 @@ import com.school.netlearning.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,7 +24,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
+
     public List<User> findAll() {
         List<User> userList = userRepository.findAll();
         return userList;
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updataIsPost(Integer id,String ispost) {
+    public User updataIsPost(Integer id, String ispost) {
         Optional<User> byId = userRepository.findById(id);
         User user = byId.get();
         user.setIspost(ispost);
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updataIsReply(Integer id,String isreply) {
+    public User updataIsReply(Integer id, String isreply) {
         Optional<User> byId = userRepository.findById(id);
         User user = byId.get();
         user.setIsreply(isreply);
@@ -72,5 +72,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserById(Integer id) {
         return userRepository.findUserById(id);
+    }
+
+    @Override
+    public List<User> testFind() {
+        List<User> userList = userMapper.testFind();
+        return userList;
     }
 }

@@ -5,13 +5,11 @@ import com.school.netlearning.pojo.User;
 import com.school.netlearning.result.Result;
 import com.school.netlearning.result.ResultUtil;
 import com.school.netlearning.service.UserService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,7 +43,6 @@ public class UserController {
 
     @PostMapping(value = "/updataIsPost")
     public Result updataIsPost(Integer id, String ispost) {
-
         userService.updataIsPost(id, ispost);
         Result result = ResultUtil.success();
         return result;
@@ -59,7 +56,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/deletUser")
-    public Result deletUser(Integer id){
+    public Result deletUser(Integer id) {
         userService.deletUserById(id);
         Result result = ResultUtil.success();
         return result;
@@ -87,5 +84,17 @@ public class UserController {
         }
         User user = userService.findUserById(id);
         return ResultUtil.success(user);
+    }
+
+    /**
+     * 测试mybatis
+     *
+     * @return
+     * @throws Exception
+     */
+    @GetMapping(value = "/testFind")
+    public Result testFind() throws Exception {
+        List<User> userList = userService.testFind();
+        return ResultUtil.success(userList);
     }
 }
