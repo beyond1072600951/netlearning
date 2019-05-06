@@ -1,7 +1,10 @@
 package com.school.netlearning.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "news")
@@ -17,6 +20,10 @@ public class News implements Serializable{
 
     @Column(name = "content")
     private  String content;
+
+    @Column(name = "release_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
+    private Date releaseTime;
 
     @Column(name = "user_id")
     private Integer userId;
@@ -47,6 +54,14 @@ public class News implements Serializable{
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Date getReleaseTime() {
+        return releaseTime;
+    }
+
+    public void setReleaseTime(Date releaseTime) {
+        this.releaseTime = releaseTime;
     }
 
     public Integer getUserId() {

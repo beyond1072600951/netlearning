@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>课程学习管理平台</title>
+    <link rel="alternate" type="application/rss+xml" title="egrappler.com" href="feed/index.html">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/mystyle.css">
+    <link rel="stylesheet" href="css/prettify.css">
+</head>
+<body>
+<nav>
+    <div class="container" id="navigation">
+        <h1>课程学习管理平台</h1>
+        <div id="menu">
+            <ul class="toplinks">
+                <li><a href="#" @click="userClick(0)">学生管理 </a></li>
+                <li><a href="#" @click="userClick(1)">课程管理</a></li>
+                <li><a href="#" @click="userClick(2)">统计管理</a></li>
+                <li><a href="#" @click="userClick(3)">新闻通知管理</a></li>
+                <li><a href="#" @click="userClick(4)">论坛管理</a></li>
+            </ul>
+        </div>
+        <a id="menu-toggle" href="#" class=" ">&#9776;</a></div>
+</nav>
+<div class="table-responsive" style="height: 520px;background: #c6efda;" id="courseManage">
+    <dev v-show="course">
+        <div>
+            <input v-model="selectCourse" style="margin-top:2px;margin-left: 15px;width: 260px;height: 30px;">
+            <button @click="selectCourseClick($event)">搜索</button>
+            <button @click="addCourseClick">添加</button>
+        </div>
+        <div class="flex-wrap-course">
+            <div v-for="course in courseList" class="course-item" key="">
+                <img :src="course.picpath">
+                <h4>{{course.name}}</h4>
+                <h4>{{course.description}}</h4>
+                <!--<h5>{{course.}}</h5>-->
+            </div>
+        </div>
+    </dev>
+    <div class="container-fluid" id="editCourseBase" v-show="addCourseBase">
+        <div class="row">
+            <!-- column -->
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-block">
+                        <h2 class="card-title" style="padding-top: 10px;padding-left: 10px;text-align: center;">
+                            {{addCourseBasetitle}}</h2>
+                        <div class="table-responsive">
+                            <form class="form" method="" action="">
+                                <div class="content" style="text-align: center;">
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">课程图片</i>
+                                                <input type="file" class="form-control" ref="ln" v-model="picpath">
+                                            </span>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">课程名字</i>
+                                                <input type="text" class="form-control" ref="ln" v-model="courseBaseName">
+                                            </span>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">课程介绍</i>
+                                                <input type="text" class="form-control" ref="ln" v-model="description">
+                                            </span>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">创建用户</i>
+                                                <input type="text" class="form-control" ref="ln" v-model="currentUserName" readonly>
+                                            </span>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">课程状态</i>
+                                            </span>
+                                        <select v-model="courseStatus" class="form-control" ref="pd"
+                                                style="width: 30%;height: 35px;">
+                                            <option value="可用">可用</option>
+                                            <option value="不可用">不可用</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg text-center"
+                                         style="padding-top: 30px;">
+                                        <a href="#" class="btn btn-primary btn-round btn-lg"
+                                           style="" v-on:click="makeSureCourseBase">确 认</a>
+                                        <a href="#" class="btn btn-primary btn-round btn-lg"
+                                           style="margin-left: 347px;"
+                                           v-on:click="cancelEditCourseBase">取 消</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <!--</div>-->
+    <footer>
+        <div class="container">
+            <p> &copy; 2019 SCHOOL | VERY HAPPY <a href="#" target="_blank"
+                                                   title="中原工学院">中原工学院</a> - Running <a
+                    href="#" title="学习平台" target="_blank">学习平台后台管理</a></p>
+        </div>
+    </footer>
+
+
+    <script src="js/core/jquery.3.2.1.min.js"></script>
+    <script src="js/plugins/jquery/jquery.localscroll-1.2.7.js" type="text/javascript"></script>
+    <script src="js/plugins/jquery/jquery.scrollTo-1.4.3.1.js" type="text/javascript"></script>
+    <script src="js/plugins/jquery/jquery.cookie.min.js"></script>
+    <script src="js/core/vue.min.js"></script>
+    <script src="js/plugins/vue/vue-resource.min.js"></script>
+    <script type="text/javascript" src="js/core/prettify.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/global.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/course.js"></script>
+<script src="js/user.js"></script>
+</body>
+</html>

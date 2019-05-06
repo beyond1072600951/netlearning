@@ -17,4 +17,20 @@ public class indexController {
     public String index(Model model) {
         return "index";
     }
+    @RequestMapping("/news")
+    public String news(Model model) {
+        return "news";
+    }
+    @RequestMapping("/course")
+    public String course(Model model) {
+        return "course";
+    }
+    @RequestMapping("/statistics")
+    public String statistics(Model model) {
+        return "statistics";
+    }
+    @RequestMapping("/forum")
+    public String forum(Model model) {
+        return "forum";
+    }
 }

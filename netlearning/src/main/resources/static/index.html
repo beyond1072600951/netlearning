@@ -81,6 +81,7 @@
         </table>
     </dev>
 
+
     <div class="container-fluid" id="editUser" v-show="addView">
         <div class="row">
             <!-- column -->
@@ -155,86 +156,8 @@
             </div>
         </div>
     </div>
-
-    <div class="table-responsive" style="height: 520px;background: #c6efda;">
-        <dev v-show="news">
-            <div>
-                <input v-model="selectNews" style="margin-top: 2px;margin-left: 15px;width: 260px;height: 30px;">
-                <button @click="selectNewsClick($event)">搜索</button>
-                <button @click="addNewsClick">添加</button>
-            </div>
-            <table class="" style="padding-top: 30px;margin: auto;">
-                <thead>
-                <tr>
-                    <th>序号</th>
-                    <th>主题</th>
-                    <th>内容</th>
-                    <th>发布人</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="(news,index) in newsList">
-                    <td>{{index+1}}</td>
-                    <td>{{news.name}}</td>
-                    <td>{{news.content}}</td>
-                    <td>{{currentUserName}}</td>
-                    <td style="width: 245px;">
-                        <button @click="deletNewsClick($event)" v-bind:newsId="news.id">删除</button>
-                    </td>
-                </tbody>
-            </table>
-        </dev>
-        <div class="container-fluid" id="editNews" v-show="addNews">
-            <div class="row">
-                <!-- column -->
-                <div class="col-sm-12">
-                    <div class="card">
-                        <div class="card-block">
-                            <h2 class="card-title" style="padding-top: 10px;padding-left: 10px;text-align: center;">
-                                {{addNewstitle}}</h2>
-                            <div class="table-responsive">
-                                <form class="form" method="" action="">
-                                    <div class="content" style="text-align: center;">
-                                        <div class="input-group form-group-no-border input-lg"
-                                             style="padding-top: 20px;">
-                                            <span class="input-group-addon" style="width: 25%;">
-                                                <i class="now-ui-icons users_circle-08">新闻主题</i>
-                                                <input type="text" class="form-control" ref="ln" v-model="newsName">
-                                            </span>
-                                        </div>
-                                        <div class="input-group form-group-no-border input-lg"
-                                             style="padding-top: 20px;">
-                                            <span class="input-group-addon" style="width: 25%;">
-                                                <i class="now-ui-icons users_circle-08">新闻内容</i>
-                                                <input type="text" class="form-control" ref="ln" v-model="content">
-                                            </span>
-                                        </div>
-                                        <div class="input-group form-group-no-border input-lg"
-                                             style="padding-top: 20px;">
-                                            <span class="input-group-addon" style="width: 25%;">
-                                                <i class="now-ui-icons users_circle-08">添加人</i>
-                                                <input type="text" class="form-control" ref="ln" v-model="currentUserName">
-                                            </span>
-                                        </div>
-                                        <div class="input-group form-group-no-border input-lg text-center"
-                                             style="padding-top: 30px;">
-                                            <a href="#" class="btn btn-primary btn-round btn-lg"
-                                               style="" v-on:click="makeSureNews">确 认</a>
-                                            <a href="#" class="btn btn-primary btn-round btn-lg"
-                                               style="margin-left: 347px;"
-                                               v-on:click="cancelEditNews">取 消</a>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
+
 
 
 <!--</div>-->
@@ -242,7 +165,7 @@
     <div class="container">
         <p> &copy; 2019 SCHOOL | VERY HAPPY <a href="#" target="_blank"
                                                title="中原工学院">中原工学院</a> - Running <a
-                href="#" title="学习平台" target="_blank">学习平台</a></p>
+                href="#" title="学习平台" target="_blank">学习平台后台管理</a></p>
     </div>
 </footer>
 
@@ -257,5 +180,6 @@
 <script src="js/layout.js"></script>
 <script src="js/global.js"></script>
 <script src="js/index.js"></script>
+<script src="js/user.js"></script>
 </body>
 </html>

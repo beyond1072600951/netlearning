@@ -31,7 +31,25 @@ var globalvm = new Vue({
                 }
             }, function () {
             });
+        },
+        ajaxUpload: function (url, params, callback) {
+            if (!params) {
+                params = {};
+            }
+            this.$http.post(url, params, {
+                headers: {Authorization: token},
+                contentType: false,
+                processData: false,
+            }).then(function (res) {
+                if (res.body.state == "success") {
+                    callback(res.body.data);
+                } else {
+                    alert(res.message);
+                }
+            }, function () {
+            });
         }
+
     }
 });
 var loading = new Vue({
