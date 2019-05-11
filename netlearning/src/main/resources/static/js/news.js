@@ -70,7 +70,7 @@ var newsManage = new Vue({
         findUserId:function () {
           var t = this;
           t.initMyInfo();
-          globalvm.ajaxGet("/user/findUserId",{name: currentUserName}, function (data) {
+          globalvm.ajaxGet("/user/findUserId",{name: t.currentUserName}, function (data) {
               newsManage.userId = data.id;
           })
         },

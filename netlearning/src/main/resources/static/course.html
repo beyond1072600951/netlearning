@@ -34,10 +34,10 @@
             <button @click="selectCourseClick($event)">搜索</button>
             <button @click="addCourseClick">添加</button>
         </div>
-        <div class="flex-wrap-course" >
-            <div v-for="course in courseList" class="course-item" key=""  >
+        <div class="flex-wrap-course">
+            <div v-for="course in courseList" class="course-item" key="">
                 <div @click="interCourse($event)" v-bind:courseId="course.id">
-                    <img :src="course.picpath" >
+                    <img :src="course.picpath">
                     <h4>{{course.name}}</h4>
                     <h4>{{course.description}}</h4>
 
@@ -47,14 +47,18 @@
             </div>
         </div>
     </dev>
-    <div v-show="coursePlan" class="courseplan" style="padding-left: 100px;">
+    <!--<div v-show="coursePlan" class="courseplan" style="padding-left: 100px;">-->
+    <div v-show="coursePlan" class="" style="padding-left: 100px;">
         <button @click="returnCourseBase">返回课程</button>
         <button @click="addChapter">添加章节</button>
         <div v-for="coursePlan in byCourseIdList">
             <!--<div @click="uploadChapter($event)" v-bind:coursePlanId="coursePlan.id">-->
-                {{coursePlan.name}}
+            <h2 v-if="coursePlan.parentId==undefined">{{coursePlan.name}}</h2>
+            <h4 v-if="coursePlan.parentId!=undefined">{{coursePlan.name}}</h4>
+            <div>
                 <button @click="updateChapter($event)" v-bind:chapterId="coursePlan.id">编辑</button>
                 <button @click="deletChapter($event)" v-bind:chapterId="coursePlan.id">删除</button>
+            </div>
             <!--</div>-->
         </div>
     </div>
@@ -81,7 +85,8 @@
                                          style="padding-top: 20px;">
                                             <span class="input-group-addon" style="width: 25%;">
                                                 <i class="now-ui-icons users_circle-08">课程名字</i>
-                                                <input type="text" class="form-control" ref="ln" v-model="courseBaseName">
+                                                <input type="text" class="form-control" ref="ln"
+                                                       v-model="courseBaseName">
                                             </span>
                                     </div>
                                     <div class="input-group form-group-no-border input-lg"
@@ -96,7 +101,8 @@
                                          style="padding-top: 20px;">
                                             <span class="input-group-addon" style="width: 25%;">
                                                 <i class="now-ui-icons users_circle-08">创建用户</i>
-                                                <input type="text" class="form-control" ref="ln" v-model="currentUserName" readonly>
+                                                <input type="text" class="form-control" ref="ln"
+                                                       v-model="currentUserName" readonly>
                                             </span>
                                     </div>
                                     <div class="input-group form-group-no-border input-lg"
@@ -142,7 +148,8 @@
                                          style="padding-top: 20px;">
                                             <span class="input-group-addon" style="width: 25%;">
                                                 <i class="now-ui-icons users_circle-08">章节名称</i>
-                                                <input type="text" class="form-control" ref="ln" v-model="coursePlanName">
+                                                <input type="text" class="form-control" ref="ln"
+                                                       v-model="coursePlanName">
                                             </span>
                                     </div>
                                     <div class="input-group form-group-no-border input-lg"
@@ -157,7 +164,8 @@
                                          style="padding-top: 20px;">
                                             <span class="input-group-addon" style="width: 25%;">
                                                 <i class="now-ui-icons users_circle-08">创建用户</i>
-                                                <input type="text" class="form-control" ref="ln" v-model="currentUserName" readonly>
+                                                <input type="text" class="form-control" ref="ln"
+                                                       v-model="currentUserName" readonly>
                                             </span>
                                     </div>
                                     <div class="input-group form-group-no-border input-lg"
@@ -203,7 +211,8 @@
                                          style="padding-top: 20px;">
                                             <span class="input-group-addon" style="width: 25%;">
                                                 <i class="now-ui-icons users_circle-08">章节名称</i>
-                                                <input type="text" class="form-control" ref="ln" v-model="coursePlanName">
+                                                <input type="text" class="form-control" ref="ln"
+                                                       v-model="coursePlanName">
                                             </span>
                                     </div>
                                     <div class="input-group form-group-no-border input-lg"
@@ -218,7 +227,8 @@
                                          style="padding-top: 20px;">
                                             <span class="input-group-addon" style="width: 25%;">
                                                 <i class="now-ui-icons users_circle-08">创建用户</i>
-                                                <input type="text" class="form-control" ref="ln" v-model="currentUserName" readonly>
+                                                <input type="text" class="form-control" ref="ln"
+                                                       v-model="currentUserName" readonly>
                                             </span>
                                     </div>
                                     <div class="input-group form-group-no-border input-lg"
@@ -251,29 +261,27 @@
 </div>
 
 
+<!--</div>-->
+<footer>
+    <div class="container">
+        <p> &copy; 2019 SCHOOL | VERY HAPPY <a href="#" target="_blank"
+                                               title="中原工学院">中原工学院</a> - Running <a
+                href="#" title="学习平台" target="_blank">学习平台后台管理</a></p>
+    </div>
+</footer>
 
 
-    <!--</div>-->
-    <footer>
-        <div class="container">
-            <p> &copy; 2019 SCHOOL | VERY HAPPY <a href="#" target="_blank"
-                                                   title="中原工学院">中原工学院</a> - Running <a
-                    href="#" title="学习平台" target="_blank">学习平台后台管理</a></p>
-        </div>
-    </footer>
-
-
-    <script src="js/core/jquery.3.2.1.min.js"></script>
-    <script src="js/plugins/jquery/jquery.localscroll-1.2.7.js" type="text/javascript"></script>
-    <script src="js/plugins/jquery/jquery.scrollTo-1.4.3.1.js" type="text/javascript"></script>
-    <script src="js/plugins/jquery/jquery.cookie.min.js"></script>
-    <script src="js/core/vue.min.js"></script>
-    <script src="js/plugins/vue/vue-resource.min.js"></script>
-    <script type="text/javascript" src="js/core/prettify.js"></script>
-    <script src="js/layout.js"></script>
-    <script src="js/global.js"></script>
-    <script src="js/index.js"></script>
-    <script src="js/course.js"></script>
+<script src="js/core/jquery.3.2.1.min.js"></script>
+<script src="js/plugins/jquery/jquery.localscroll-1.2.7.js" type="text/javascript"></script>
+<script src="js/plugins/jquery/jquery.scrollTo-1.4.3.1.js" type="text/javascript"></script>
+<script src="js/plugins/jquery/jquery.cookie.min.js"></script>
+<script src="js/core/vue.min.js"></script>
+<script src="js/plugins/vue/vue-resource.min.js"></script>
+<script type="text/javascript" src="js/core/prettify.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/global.js"></script>
+<script src="js/index.js"></script>
+<script src="js/course.js"></script>
 <script src="js/user.js"></script>
 </body>
 </html>
