@@ -69,6 +69,12 @@ public class UserController {
         return result;
     }
 
+    @GetMapping(value = "findUserId")
+    public Result findUserId(String name){
+        User byName = userService.findByName(name);
+        Result result = ResultUtil.success(byName);
+        return result;
+    }
     /**
      * 根据ID查询用户详情，学生只能查看自己的信息
      *
@@ -86,15 +92,15 @@ public class UserController {
         return ResultUtil.success(user);
     }
 
-    /**
-     * 测试mybatis
-     *
-     * @return
-     * @throws Exception
-     */
-    @GetMapping(value = "/testFind")
-    public Result testFind() throws Exception {
-        List<User> userList = userService.testFind();
-        return ResultUtil.success(userList);
-    }
+//    /**
+//     * 测试mybatis
+//     *
+//     * @return
+//     * @throws Exception
+//     */
+//    @GetMapping(value = "/testFind")
+//    public Result testFind() throws Exception {
+//        List<User> userList = userService.testFind();
+//        return ResultUtil.success(userList);
+//    }
 }

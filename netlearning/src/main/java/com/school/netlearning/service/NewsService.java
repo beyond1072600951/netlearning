@@ -4,6 +4,7 @@ import com.school.netlearning.pojo.News;
 import com.school.netlearning.pojo.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface NewsService {
 

@@ -13,10 +13,10 @@ public interface  NewsRepository extends JpaRepository<News, Integer> {
     /**
      *
      */
-    //@Query(nativeQuery = true, value = "SELECT n.name,n.content,n.release_time,u.name FROM news n JOIN user u ON n.user_id = u.id")
+
      List<News> findAll();
 
     List<News> findByNameContaining(String name);
 
-    
+
 }

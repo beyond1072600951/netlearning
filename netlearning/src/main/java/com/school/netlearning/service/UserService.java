@@ -18,6 +18,8 @@ public interface UserService {
 
     public User findUserById(Integer id);
 
+    public User findByName(String name);
+
 
     public  List<User> findByNameContaining(String userName);
 

@@ -117,4 +117,20 @@ public class CoursePlan {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "CoursePlan{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", parentId=" + parentId +
+                ", level=" + level +
+                ", ptype=" + ptype +
+                ", description='" + description + '\'' +
+                ", timelength=" + timelength +
+                ", courseId=" + courseId +
+                ", orderby='" + orderby + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

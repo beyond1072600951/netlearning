@@ -72,7 +72,7 @@ public class News implements Serializable{
         this.userId = userId;
     }
 
-    //    public User getUser() {
+//        public User getUser() {
 //        return user;
 //    }
 //

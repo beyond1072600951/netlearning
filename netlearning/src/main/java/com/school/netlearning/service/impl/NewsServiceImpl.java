@@ -1,22 +1,27 @@
 package com.school.netlearning.service.impl;
 
+import com.school.netlearning.mapper.NewsMapper;
 import com.school.netlearning.pojo.News;
 import com.school.netlearning.pojo.User;
 import com.school.netlearning.repository.NewsRepository;
 import com.school.netlearning.repository.RoleRepository;
 import com.school.netlearning.repository.UserRepository;
+import com.school.netlearning.result.Result;
 import com.school.netlearning.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class NewsServiceImpl implements NewsService{
 
     @Autowired
     private NewsRepository newsRepository;
+
+
 
     @Autowired
     private RoleRepository roleRepository;

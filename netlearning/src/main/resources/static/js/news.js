@@ -2,7 +2,7 @@ var newsManage = new Vue({
     el: "#newsManage",
     data: {
         news: true,
-        newsList: [],
+        newsMapList: [],
         addNews: false,
         addNewstitle: "添加新闻通知",
 
@@ -11,6 +11,7 @@ var newsManage = new Vue({
         selectNews: "",
         currentUserName : "",
         releaseTime:"",
+        userId:"",
     },
     methods: {
 
@@ -18,16 +19,21 @@ var newsManage = new Vue({
             var t = this;
             t.news = false;
             t.addNews = true;
+            t.initMyInfo();
         },
         makeSureNews: function () {
             var t = this;
-            releaseTime = new Date().Format("yyyy-MM-dd HH:mm:ss");
+            t.initMyInfo();
+            t.findUserId();
+            //releaseTime = new Date().Format("yyyy-MM-dd HH:mm:ss");
             var params;
             if (t.newsName && t.content) {
                 params = {
                     name: t.newsName,
                     content: t.content,
-                    releaseTime:t.releaseTime
+                    userId:t.userId,
+
+                   // releaseTime:t.releaseTime
                 };
                 globalvm.ajaxPost("/news/saveNews", params, function (data) {
                     t.news = true;
@@ -61,7 +67,13 @@ var newsManage = new Vue({
             })
         },
 
-
+        findUserId:function () {
+          var t = this;
+          t.initMyInfo();
+          globalvm.ajaxGet("/user/findUserId",{name: currentUserName}, function (data) {
+              newsManage.userId = data.id;
+          })
+        },
         initMyInfo: function () {
             var t = this;
             globalvm.ajaxGet("/user/findById", {}, function (data) {
@@ -72,7 +84,7 @@ var newsManage = new Vue({
         initNewsList: function () {
             var t = this;
             globalvm.ajaxGet("/news/newsList", {}, function (data) {
-                t.newsList = data;
+                t.newsMapList = data;
             });
         },
         createdNews: function () {

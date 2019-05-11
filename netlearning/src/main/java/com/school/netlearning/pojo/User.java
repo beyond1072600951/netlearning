@@ -60,6 +60,7 @@ public class User implements Serializable {
     @Column(name = "isreply")
     private String isreply;
 
+
     //    @Null
     @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
@@ -164,7 +165,8 @@ public class User implements Serializable {
         this.roleList = roleList;
     }
 
-//    public List<News> getNewsList() {
+
+//        public List<News> getNewsList() {
 //        return newsList;
 //    }
 //

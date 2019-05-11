@@ -16,3 +16,37 @@
 .course-item:hover{
     background-color: rgb(160, 239, 218);
 }
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff
+}
+
+.courseplan {
+    width: 300px;
+    padding: 0px 0px ;
+    margin: 10px;
+}
+.courseplan ul{
+    padding:5px 10px ;
+    background: white;
+}
+.courseplan ul li{
+    list-style: none;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px dashed gray;
+    text-indent: 15px;
+    font-size: 18px;
+
+}
+.courseplan a{
+    text-decoration: none;
+    color: #06C;
+    margin-left: 20px;
+}
+.courseplan a:hover{
+    text-decoration: underline;
+    color: red;
+}

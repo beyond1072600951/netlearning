@@ -9,6 +9,7 @@ var userManage = new Vue({
         addView: false,
         addtitle: "添加学生",
 
+        id:"",
         userName: "",
         password: "123456",
         name: "",

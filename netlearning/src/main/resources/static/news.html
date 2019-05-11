@@ -46,15 +46,16 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(news,index) in newsList">
+            <tr v-for="(news,index) in newsMapList">
                 <td>{{index+1}}</td>
+                <td>{{news.news.name}}</td>
+                <td>{{news.news.content}}</td>
                 <td>{{news.name}}</td>
-                <td>{{news.content}}</td>
-                <td>{{currentUserName}}</td>
-                <td>{{news.releaseTime}}</td>
+                <td>{{news.news.releaseTime}}</td>
                 <td style="width: 245px;">
-                    <button @click="deletNewsClick($event)" v-bind:newsId="news.id">删除</button>
+                    <button class="btn-primary" @click="deletNewsClick($event)" v-bind:newsId="news.news.id">删除</button>
                 </td>
+            </tr>
             </tbody>
         </table>
     </dev>
@@ -88,13 +89,6 @@
                                             <span class="input-group-addon" style="width: 25%;">
                                                 <i class="now-ui-icons users_circle-08">发布人</i>
                                                 <input type="text" class="form-control" ref="ln" v-model="currentUserName" readonly>
-                                            </span>
-                                    </div>
-                                    <div class="input-group form-group-no-border input-lg"
-                                         style="padding-top: 20px;">
-                                            <span class="input-group-addon" style="width: 25%;">
-                                                <i class="now-ui-icons users_circle-08">发布时间</i>
-                                                <input type="text" class="form-control" ref="ln" v-model="releaseTime" readonly>
                                             </span>
                                     </div>
                                     <div class="input-group form-group-no-border input-lg text-center"
