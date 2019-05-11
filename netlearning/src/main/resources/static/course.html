@@ -53,6 +53,7 @@
         <div v-for="coursePlan in byCourseIdList">
             <!--<div @click="uploadChapter($event)" v-bind:coursePlanId="coursePlan.id">-->
                 {{coursePlan.name}}
+                <button @click="updateChapter($event)" v-bind:chapterId="coursePlan.id">编辑</button>
                 <button @click="deletChapter($event)" v-bind:chapterId="coursePlan.id">删除</button>
             <!--</div>-->
         </div>
@@ -126,7 +127,7 @@
         </div>
     </div>
 
-    <div class="container-fluid" id="editCoursePlan" v-show="addCoursePlanView">
+    <div class="container-fluid" id="addCoursePlan" v-show="addCoursePlanView">
         <div class="row">
             <!-- column -->
             <div class="col-sm-12">
@@ -166,8 +167,8 @@
                                             </span>
                                         <select v-model="coursePlanStatus" class="form-control" ref="pd"
                                                 style="width: 30%;height: 35px;">
-                                            <option value="可用">可用</option>
-                                            <option value="不可用">不可用</option>
+                                            <option value="1">可用</option>
+                                            <option value="0">不可用</option>
                                         </select>
                                     </div>
                                     <div class="input-group form-group-no-border input-lg text-center"
@@ -187,6 +188,66 @@
         </div>
     </div>
 
+    <div class="container-fluid" id="editCoursePlan" v-show="updateCoursePlan">
+        <div class="row">
+            <!-- column -->
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-block">
+                        <h2 class="card-title" style="padding-top: 10px;padding-left: 10px;text-align: center;">
+                            {{updateCoursePlantitle}}</h2>
+                        <div class="table-responsive">
+                            <form class="form" method="" action="">
+                                <div class="content" style="text-align: center;">
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">章节名称</i>
+                                                <input type="text" class="form-control" ref="ln" v-model="coursePlanName">
+                                            </span>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">章节介绍</i>
+                                                <!--<input type="text" class="form-control" ref="ln" v-model="chapterDescription">-->
+                                                <textarea cols="55" rows="5" v-model="chapterDescription"></textarea>
+                                            </span>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">创建用户</i>
+                                                <input type="text" class="form-control" ref="ln" v-model="currentUserName" readonly>
+                                            </span>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">章节状态</i>
+                                            </span>
+                                        <select v-model="coursePlanStatus" class="form-control" ref="pd"
+                                                style="width: 30%;height: 35px;">
+                                            <option value="1">可用</option>
+                                            <option value="0">不可用</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg text-center"
+                                         style="padding-top: 30px;">
+                                        <a href="#" class="btn btn-primary btn-round btn-lg"
+                                           style="" v-on:click="makeSureUpdateCoursePlan">确 认</a>
+                                        <a href="#" class="btn btn-primary btn-round btn-lg"
+                                           style="margin-left: 347px;"
+                                           v-on:click="cancelEditUpdateCoursePlan">取 消</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

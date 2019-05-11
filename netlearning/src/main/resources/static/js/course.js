@@ -26,8 +26,10 @@ var courseManage = new Vue({
         addCoursePlantitle:"添加课程章节",
         coursePlanName:"",
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         chapterDescription:"",
-        coursePlanStatus:"可用"
+        coursePlanStatus:"可用",
 
+        updateCoursePlantitle:"编辑课程章节",
+        updateCoursePlan:false,
 
     },
     methods: {
@@ -105,7 +107,9 @@ var courseManage = new Vue({
             var params;
             if (t.coursePlanName && t.coursePlanStatus && t.chapterDescription){
                 params = {
-                    
+                    name:t.coursePlanName,
+                    description:t.chapterDescription,
+                    status:t.coursePlanStatus,
                 }
             }
 
@@ -119,6 +123,7 @@ var courseManage = new Vue({
             this.addCoursePlanView = false;
             this.coursePlan = true;
         },
+
 
         /**
          * 删除课程章节
@@ -134,10 +139,17 @@ var courseManage = new Vue({
         /**
          * 修改课程章节内容
          */
-        uploadChapter:function (event) {
+        updateChapter:function (event) {
+            this.coursePlan = false;
+            this.updateCoursePlan = true;
+        },
+        makeSureUpdateCoursePlan:function () {
 
         },
-
+        cancelEditUpdateCoursePlan:function () {
+            this.coursePlan = true;
+            this.updateCoursePlan = false;
+        },
         /**
          * 课程列表
          */
