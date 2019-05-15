@@ -43,7 +43,7 @@ public class User implements Serializable {
 
     //    @Null
     @Column(name = "registime")
-    private Date createDate;
+    private Date registime;
 
     @Column(name = "name")
     private String name;
@@ -109,12 +109,12 @@ public class User implements Serializable {
         this.state = state;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public Date getRegistime() {
+        return registime;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setRegistime(Date registime) {
+        this.registime = registime;
     }
 
     public String getName() {

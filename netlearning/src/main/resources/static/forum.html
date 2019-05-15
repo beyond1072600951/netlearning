@@ -26,11 +26,130 @@
         </div>
         <a id="menu-toggle" href="#" class=" ">&#9776;</a></div>
 </nav>
-<h1>论坛</h1>
+<div class="table-responsive" style="height: 520px;background: #c6efda;" id="forumManage">
+    <dev v-show="postView">
+        <div>
+            <input v-model="selectPost" style="margin-top:2px;margin-left: 15px;width: 260px;height: 30px;">
+            <button @click="selectPostClick($event)">搜索</button>
+            <button @click="addPostClick">发帖</button>
+        </div>
+        <div class="flex-wrap-course">
+            <div v-for="post in postMapList" class="course-item" key="">
+                <div @click="obtainReply($event)" v-bind:postId="post.post.id">
+                    <h4>{{post.name}}</h4>
+                    <h5>{{post.post.title}}</h5>
+                    <h6>{{post.post.content}}</h6>
+                    <h7>{{post.post.time}}</h7>
+                </div>
+                <button @click="deletPost($event)" v-bind:postId="post.post.id">删除</button>
+            </div>
+        </div>
+    </dev>
+    <div v-show="replyView" class="" style="padding-left: 100px;">
+        <button @click="returnPost">返回</button>
+        <button @click="addReplyClick">回复</button>
+        <div v-for="reply in byPostIdList">
+            <h5>{{reply.content}}</h5>
+            <!--<h2>{{reply.content}}</h2>-->
+            <div>
+                <button @click="deletReply($event)" v-bind:replyId="reply.id">删除</button>
+            </div>
+            <!--</div>-->
+        </div>
+    </div>
 
+    <div class="container-fluid" id="editPost" v-show="addPost">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-block">
+                        <h2 class="card-title" style="padding-top: 10px;padding-left: 10px;text-align: center;">
+                            {{addPostTitle}}</h2>
+                        <div class="table-responsive">
+                            <form class="form" method="" action="">
+                                <div class="content" style="text-align: center;">
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">帖子主题</i>
+                                                <input type="text" class="form-control" ref="ln"
+                                                       v-model="postTitle">
+                                            </span>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">帖子内容</i>
+                                                <textarea cols="55" rows="5" v-model="postContent"></textarea>
+                                            </span>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">发帖人</i>
+                                                <input type="text" class="form-control" ref="ln"
+                                                       v-model="currentUserName" readonly>
+                                            </span>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg text-center"
+                                         style="padding-top: 30px;">
+                                        <a href="#" class="btn btn-primary btn-round btn-lg"
+                                           style="" v-on:click="makeSurePost">确 认</a>
+                                        <a href="#" class="btn btn-primary btn-round btn-lg"
+                                           style="margin-left: 347px;"
+                                           v-on:click="cancelEditPost">取 消</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" id="editReply" v-show="addReply">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-block">
+                        <h2 class="card-title" style="padding-top: 10px;padding-left: 10px;text-align: center;">
+                            {{addReplyTitle}}</h2>
+                        <div class="table-responsive">
+                            <form class="form" method="" action="">
+                                <div class="content" style="text-align: center;">
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">回复内容</i>
+                                                <textarea cols="55" rows="5" v-model="replyContent"></textarea>
+                                            </span>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">回复人</i>
+                                                <input type="text" class="form-control" ref="ln"
+                                                       v-model="currentUserName" readonly>
+                                            </span>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg text-center"
+                                         style="padding-top: 30px;">
+                                        <a href="#" class="btn btn-primary btn-round btn-lg"
+                                           style="" v-on:click="makeSureReply">确 认</a>
+                                        <a href="#" class="btn btn-primary btn-round btn-lg"
+                                           style="margin-left: 347px;"
+                                           v-on:click="cancelEditReply">取 消</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-
-<!--</div>-->
 <footer>
     <div class="container">
         <p> &copy; 2019 SCHOOL | VERY HAPPY <a href="#" target="_blank"
@@ -50,5 +169,7 @@
 <script src="js/layout.js"></script>
 <script src="js/global.js"></script>
 <script src="js/index.js"></script>
+<script src="js/user.js"></script>
+<script src="js/forum.js"></script>
 </body>
 </html>

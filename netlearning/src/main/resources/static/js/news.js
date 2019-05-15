@@ -25,20 +25,19 @@ var newsManage = new Vue({
             var t = this;
             t.initMyInfo();
             t.findUserId();
-            //releaseTime = new Date().Format("yyyy-MM-dd HH:mm:ss");
             var params;
             if (t.newsName && t.content) {
                 params = {
                     name: t.newsName,
                     content: t.content,
                     userId:t.userId,
-
-                   // releaseTime:t.releaseTime
                 };
                 globalvm.ajaxPost("/news/saveNews", params, function (data) {
                     t.news = true;
                     t.addNews = false;
                     t.initNewsList();
+                    t.newsName = "";
+                    t.content = "";
                 });
             } else {
 
@@ -61,9 +60,8 @@ var newsManage = new Vue({
         selectNewsClick: function () {
             var t = this;
             var name = t.selectNews;
-
             globalvm.ajaxGet("/news/findByNameContaining", {name: name}, function (data) {
-                t.newsList = data;
+                t.newsMapList = data;
             })
         },
 

@@ -1,15 +1,18 @@
 package com.school.netlearning.controller;
 
 import com.school.netlearning.Util.CurrentUserUtil;
+import com.school.netlearning.pojo.News;
 import com.school.netlearning.pojo.User;
 import com.school.netlearning.result.Result;
 import com.school.netlearning.result.ResultUtil;
+import com.school.netlearning.service.NewsService;
 import com.school.netlearning.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +28,9 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private NewsService newsService;
+
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping(value = "/userList")
@@ -36,6 +42,7 @@ public class UserController {
 
     @PostMapping(value = "/saveUser")
     public Result saveUser(User user) {
+        user.setRegistime(new Date());
         User u = userService.addUser(user);
         Result result = ResultUtil.success();
         return result;
@@ -58,6 +65,10 @@ public class UserController {
     @GetMapping(value = "/deletUser")
     public Result deletUser(Integer id) {
         userService.deletUserById(id);
+        List<News> newsList = newsService.findByUserId(id);
+        for (int i = 0; i<newsList.size(); i++){
+            newsService.deleteNewsById(newsList.get(i).getId());
+        }
         Result result = ResultUtil.success();
         return result;
     }

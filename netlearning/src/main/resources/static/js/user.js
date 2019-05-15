@@ -44,6 +44,10 @@ var userManage = new Vue({
                     t.show = true;
                     t.addView = false;
                     t.initList();
+                    t.userName = "";
+                    t.password = "";
+                    t.name = "";
+                    t.phone = "";
                 });
             } else {
 

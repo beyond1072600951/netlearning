@@ -61,4 +61,10 @@ public class NewsServiceImpl implements NewsService{
         List<News> list = newsRepository.findByNameContaining(name);
         return list;
     }
+
+    @Override
+    public List<News> findByUserId(Integer userId) {
+        List<News> newsList = newsRepository.findByUserId(userId);
+        return newsList;
+    }
 }

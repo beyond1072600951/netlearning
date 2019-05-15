@@ -18,5 +18,7 @@ public interface  NewsRepository extends JpaRepository<News, Integer> {
 
     List<News> findByNameContaining(String name);
 
+    List<News> findByUserId(Integer userId);
+
 
 }

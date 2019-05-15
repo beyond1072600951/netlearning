@@ -69,7 +69,15 @@ public class NewsController {
     @GetMapping(value = "/findByNameContaining")
     public Result findByNameContaining(@RequestParam(value = "name") String name) {
         List<News> byNameContaining = newsService.findByNameContaining(name);
-        Result result = ResultUtil.success(byNameContaining);
+        List<Map<String, Object>> newsMapList = new ArrayList<Map<String, Object>>();
+        for (int i = 0; i < byNameContaining.size(); i++) {
+            User user = userService.findUserById(byNameContaining.get(i).getUserId());
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("name", user.getName());
+            map.put("news", byNameContaining.get(i));
+            newsMapList.add(map);
+        }
+        Result result = ResultUtil.success(newsMapList);
         return result;
     }
 }

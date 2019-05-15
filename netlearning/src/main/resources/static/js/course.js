@@ -4,16 +4,17 @@ var courseManage = new Vue({
     data: {
 
         course: true,
-        courseList:[],
+        courseBaseMapList:[],
         selectCourse:"",
 
+        userId:"",
         addCourseBase:false,
         addCourseBasetitle:"添加课程",
         currentUserName: "",
         picpath:"",
         courseBaseName:"",
         description:"",
-        courseStatus:"可用",
+        courseStatus:"",
 
         courseId:"",
         coursePlanId:"",
@@ -26,7 +27,7 @@ var courseManage = new Vue({
         addCoursePlantitle:"添加课程章节",
         coursePlanName:"",
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         chapterDescription:"",
-        coursePlanStatus:"可用",
+        coursePlanStatus:"",
 
         updateCoursePlantitle:"编辑课程章节",
         updateCoursePlan:false,
@@ -39,25 +40,31 @@ var courseManage = new Vue({
         addCourseClick: function () {
             this.course = false;
             this.addCourseBase = true;
+            this.initMyInfo();
         },
         /**
          * 确定添加课程
          */
         makeSureCourseBase: function () {
             var t = this;
+            t.initMyInfo();
+            t.findUserId();
             var params;
-            if (t.courseBaseName && t.courseBaseName && t.courseStatus && t.picpath) {
+            if (t.courseBaseName && t.courseBaseName && t.courseStatus) {
                 params = {
                     name: t.courseBaseName,
                     description: t.description,
                     status:t.courseStatus,
-                    picpath:t.picpath,
-
+                    // picpath:t.picpath,
+                    userId:t.userId,
                 };
                 globalvm.ajaxPost("/courseBase/saveCourseBase", params, function (data) {
                     t.course = true;
                     t.addCourseBase = false;
                     t.initCourseList();
+                    t.courseBaseName = "";
+                    t.description = "";
+                    t.courseStatus = "";
                 });
             } else {
 
@@ -73,15 +80,31 @@ var courseManage = new Vue({
         },
 
         /**
+         * 删除课程
+         */
+        deletCourseBase: function (event) {
+          var t = this;
+          var courseBaseId = $(event.currentTarget).attr("courseBaseId");
+          globalvm.ajaxGet("/courseBase/deletCourseBase", {id:courseBaseId}, function () {
+              t.initCourseList();
+          })
+        },
+        /**
+         * 获取选择课程的id，并调用获取课程目录的方法
+         */
+        obtainCourse: function (event) {
+          this.courseId = $(event.currentTarget).attr("courseId");
+          this.interCourse(this.courseId);
+        },
+        /**
          * 课程章节目录
          * @param event
          */
-        interCourse:function (event) {
+        interCourse:function (courseId) {
             var t = this;
             t.course = false;
             t.coursePlan = true;
             t.addCourseBase = false;
-            var courseId = $(event.currentTarget).attr("courseId");
             globalvm.ajaxGet("/coursePlan/findAllChapterOrderByOrderby", {courseId: courseId,parentId:null}, function (data) {
                 t.byCourseIdList = data;
             })
@@ -101,15 +124,20 @@ var courseManage = new Vue({
         addChapter:function () {
             this.addCoursePlanView = true;
             this.coursePlan = false;
+            this.initMyInfo();
         },
         makeSureCoursePlan:function () {
             var  t = this;
+            t.initMyInfo();
+            t.findUserId();
             var params;
             if (t.coursePlanName && t.coursePlanStatus && t.chapterDescription){
                 params = {
                     name:t.coursePlanName,
                     description:t.chapterDescription,
                     status:t.coursePlanStatus,
+                    userId: t.userId,
+
                 }
             }
 
@@ -132,7 +160,7 @@ var courseManage = new Vue({
             var t = this;
             var chapterId = $(event.currentTarget).attr("chapterId");
             globalvm.ajaxGet("/coursePlan/deletChapter",{id:chapterId},function () {
-                t.interCourse();
+                t.interCourse(t.courseId);
             })
         },
 
@@ -150,14 +178,33 @@ var courseManage = new Vue({
             this.coursePlan = true;
             this.updateCoursePlan = false;
         },
+
+        /**
+         * 获取登录人id
+         */
+        findUserId:function () {
+            var t = this;
+            t.initMyInfo();
+            globalvm.ajaxGet("/user/findUserId",{name: t.currentUserName}, function (data) {
+                courseManage.userId = data.id;
+            })
+        },
+        /**
+         * 获取当前登录人名字
+         */
+        initMyInfo: function () {
+            var t = this;
+            globalvm.ajaxGet("/user/findById", {}, function (data) {
+                courseManage.currentUserName = data.name;
+            });
+        },
         /**
          * 课程列表
          */
         initCourseList:function () {
             var t = this;
             globalvm.ajaxGet("/courseBase/courseBaseList", {}, function (data) {
-                t.courseList = data;
-                console.log("---",t.courseList)
+                t.courseBaseMapList = data;
             });
         },
         createCourse:function () {
@@ -167,9 +214,8 @@ var courseManage = new Vue({
         selectCourseClick:function () {
             var t = this;
             var name = t.selectCourse;
-
             globalvm.ajaxGet("/courseBase/findByNameContaining", {name: name}, function (data) {
-                t.courseList = data;
+                t.courseBaseMapList = data;
             })
         },
 

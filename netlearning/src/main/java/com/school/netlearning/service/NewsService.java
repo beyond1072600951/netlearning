@@ -16,4 +16,6 @@ public interface NewsService {
     public void deleteNewsById(Integer id);   //删除新闻通知
 
     public  List<News> findByNameContaining(String name);  //搜索
+
+    public List<News> findByUserId(Integer userId);  //通过userId搜索新闻list
 }

@@ -74,7 +74,7 @@ public class InitMysql implements CommandLineRunner {
             ArrayList<Role> arrayList = new ArrayList<>();
             arrayList.add(role1);
             user.setRoleList(arrayList);
-            user.setCreateDate(new Date());
+            user.setRegistime(new Date());
             userRepository.save(user);
         }
     }

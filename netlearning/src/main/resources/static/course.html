@@ -35,24 +35,21 @@
             <button @click="addCourseClick">添加</button>
         </div>
         <div class="flex-wrap-course">
-            <div v-for="course in courseList" class="course-item" key="">
-                <div @click="interCourse($event)" v-bind:courseId="course.id">
-                    <img :src="course.picpath">
-                    <h4>{{course.name}}</h4>
-                    <h4>{{course.description}}</h4>
-
-                    </a>
+            <div v-for="course in courseBaseMapList" class="course-item" key="">
+                <div @click="obtainCourse($event)" v-bind:courseId="course.courseBase.id">
+                    <img :src="course.courseBase.picpath">
+                    <h4>{{course.courseBase.name}}</h4>
+                    <h4>{{course.courseBase.description}}</h4>
+                    <h5>{{course.name}}</h5>
                 </div>
-
+                <button @click="deletCourseBase($event)" v-bind:courseBaseId="course.courseBase.id">删除</button>
             </div>
         </div>
     </dev>
-    <!--<div v-show="coursePlan" class="courseplan" style="padding-left: 100px;">-->
     <div v-show="coursePlan" class="" style="padding-left: 100px;">
         <button @click="returnCourseBase">返回课程</button>
         <button @click="addChapter">添加章节</button>
         <div v-for="coursePlan in byCourseIdList">
-            <!--<div @click="uploadChapter($event)" v-bind:coursePlanId="coursePlan.id">-->
             <h2 v-if="coursePlan.parentId==undefined">{{coursePlan.name}}</h2>
             <h4 v-if="coursePlan.parentId!=undefined">{{coursePlan.name}}</h4>
             <div>
@@ -74,13 +71,13 @@
                         <div class="table-responsive">
                             <form class="form" method="" action="">
                                 <div class="content" style="text-align: center;">
-                                    <div class="input-group form-group-no-border input-lg"
-                                         style="padding-top: 20px;">
-                                            <span class="input-group-addon" style="width: 25%;">
-                                                <i class="now-ui-icons users_circle-08">课程图片</i>
-                                                <input type="file" class="form-control" ref="ln" v-model="picpath">
-                                            </span>
-                                    </div>
+                                    <!--<div class="input-group form-group-no-border input-lg"-->
+                                         <!--style="padding-top: 20px;">-->
+                                            <!--<span class="input-group-addon" style="width: 25%;">-->
+                                                <!--<i class="now-ui-icons users_circle-08">课程图片</i>-->
+                                                <!--<input type="file" class="form-control" ref="ln" v-model="picpath">-->
+                                            <!--</span>-->
+                                    <!--</div>-->
                                     <div class="input-group form-group-no-border input-lg"
                                          style="padding-top: 20px;">
                                             <span class="input-group-addon" style="width: 25%;">
@@ -112,8 +109,8 @@
                                             </span>
                                         <select v-model="courseStatus" class="form-control" ref="pd"
                                                 style="width: 30%;height: 35px;">
-                                            <option value="可用">可用</option>
-                                            <option value="不可用">不可用</option>
+                                            <option value="1" selected="selected">可用</option>
+                                            <option value="0">不可用</option>
                                         </select>
                                     </div>
                                     <div class="input-group form-group-no-border input-lg text-center"
