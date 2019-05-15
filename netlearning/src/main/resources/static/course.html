@@ -71,13 +71,13 @@
                         <div class="table-responsive">
                             <form class="form" method="" action="">
                                 <div class="content" style="text-align: center;">
-                                    <!--<div class="input-group form-group-no-border input-lg"-->
-                                         <!--style="padding-top: 20px;">-->
-                                            <!--<span class="input-group-addon" style="width: 25%;">-->
-                                                <!--<i class="now-ui-icons users_circle-08">课程图片</i>-->
-                                                <!--<input type="file" class="form-control" ref="ln" v-model="picpath">-->
-                                            <!--</span>-->
-                                    <!--</div>-->
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">课程图片</i>
+                                                <input type="file" class="form-control" ref="ln" v-model="picpath" @change="uploadFile">
+                                            </span>
+                                    </div>
                                     <div class="input-group form-group-no-border input-lg"
                                          style="padding-top: 20px;">
                                             <span class="input-group-addon" style="width: 25%;">

@@ -22,9 +22,16 @@
                 <li><a href="#" @click="userClick(2)">统计管理</a></li>
                 <li><a href="#" @click="userClick(3)">新闻通知管理</a></li>
                 <li><a href="#" @click="userClick(4)">论坛管理</a></li>
+                <li>
+                    <a href="#">欢迎您：{{currUserName}}</a>
+                </li>
             </ul>
         </div>
-        <a id="menu-toggle" href="#" class=" ">&#9776;</a></div>
+        <a id="menu-toggle" href="#" class=" ">&#9776;</a>
+        <h5 style="margin-top: -70px;margin-left: 890px;" @click="outLogin">
+            <a href="#">欢迎您：{{currUserName}}</a>
+        </h5>
+    </div>
 </nav>
 <div class="table-responsive" style="height: 520px;background: #c6efda;" id="userManage">
     <dev v-show="show">
@@ -157,7 +164,6 @@
         </div>
     </div>
 </div>
-
 
 
 <!--</div>-->

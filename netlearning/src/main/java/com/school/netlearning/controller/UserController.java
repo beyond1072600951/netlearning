@@ -66,7 +66,7 @@ public class UserController {
     public Result deletUser(Integer id) {
         userService.deletUserById(id);
         List<News> newsList = newsService.findByUserId(id);
-        for (int i = 0; i<newsList.size(); i++){
+        for (int i = 0; i < newsList.size(); i++) {
             newsService.deleteNewsById(newsList.get(i).getId());
         }
         Result result = ResultUtil.success();
@@ -81,11 +81,12 @@ public class UserController {
     }
 
     @GetMapping(value = "findUserId")
-    public Result findUserId(String name){
+    public Result findUserId(String name) {
         User byName = userService.findByName(name);
         Result result = ResultUtil.success(byName);
         return result;
     }
+
     /**
      * 根据ID查询用户详情，学生只能查看自己的信息
      *
@@ -101,6 +102,14 @@ public class UserController {
         }
         User user = userService.findUserById(id);
         return ResultUtil.success(user);
+    }
+
+    @GetMapping(value = "/getName")
+    public Result findByNameContaining(HttpServletRequest request) {
+        Integer userId = CurrentUserUtil.getUserId(request);
+        User user = userService.findUserById(userId);
+        Result result = ResultUtil.success(user);
+        return result;
     }
 
 //    /**

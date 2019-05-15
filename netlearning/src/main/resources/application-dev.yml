@@ -9,6 +9,9 @@ server:
     max-threads: 10
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 2MB
   http:
     encoding:
       charset: UTF-8
@@ -23,7 +26,7 @@ spring:
 #    url: jdbc:mysql://127.0.0.1:3306/netlearning?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
     url: jdbc:mysql://127.0.0.1:3306/netlearning?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
     username: root
-    password: 123
+    password: 123456
 #    data-username: root
 #    data-password: root
   #序列化时，属性为NULL和""的都不序列化
@@ -47,3 +50,21 @@ spring:
 mybatis:
   mapper-locations: classpath:mapping/*.xml
   type-aliases-package: com.school.netlearning.pojo
+
+#阿里云OSS配置
+alioss:
+  #区域
+  endpoint: oss-cn-beijing.aliyuncs.com
+  #access账号
+  accessKeyId: LTAIsAr2qWtg46g4
+  accessKeySecret: BrquSvLaRwf2deecNF8vpBf9GD9fQN
+  #bucket名称
+  bucketName: gdxt
+  #签名url的有效时间；毫秒为单位
+  expiration: 300000
+  #临时访问凭证有效时间；秒为单位
+  expireTime: 600
+  #上传回调时调用的接口
+  callbackurl: https://bj.abc.cn/callback
+  #前端直传；文件最大为2M
+  fileSize: 2097152

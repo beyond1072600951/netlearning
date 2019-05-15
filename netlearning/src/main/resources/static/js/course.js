@@ -1,39 +1,47 @@
-
 var courseManage = new Vue({
     el: "#courseManage",
     data: {
 
         course: true,
-        courseBaseMapList:[],
-        selectCourse:"",
+        courseBaseMapList: [],
+        selectCourse: "",
 
-        userId:"",
-        addCourseBase:false,
-        addCourseBasetitle:"添加课程",
+        userId: "",
+        addCourseBase: false,
+        addCourseBasetitle: "添加课程",
         currentUserName: "",
-        picpath:"",
-        courseBaseName:"",
-        description:"",
-        courseStatus:"",
+        picpath: "",
+        courseBaseName: "",
+        description: "",
+        courseStatus: "",
 
-        courseId:"",
-        coursePlanId:"",
-        chapterId:"",
-        coursePlan:false,
-        byCourseIdList:[],
+        courseId: "",
+        coursePlanId: "",
+        chapterId: "",
+        coursePlan: false,
+        byCourseIdList: [],
         // coursePlanSectionList:[],
 
-        addCoursePlanView:false,
-        addCoursePlantitle:"添加课程章节",
-        coursePlanName:"",
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        chapterDescription:"",
-        coursePlanStatus:"",
+        addCoursePlanView: false,
+        addCoursePlantitle: "添加课程章节",
+        coursePlanName: "",
+        chapterDescription: "",
+        coursePlanStatus: "",
 
-        updateCoursePlantitle:"编辑课程章节",
-        updateCoursePlan:false,
+        updateCoursePlantitle: "编辑课程章节",
+        updateCoursePlan: false,
 
     },
     methods: {
+        //文件上传
+        uploadFile: function (file) {
+            var t = this;
+            var formData = new FormData();
+            formData.append('upload', file.target.files[0]);
+            globalvm.ajaxUploadFile("/file/upload", formData, function (data) {
+                console.log(data);
+            });
+        },
         /**
          * 添加课程
          */
@@ -54,9 +62,9 @@ var courseManage = new Vue({
                 params = {
                     name: t.courseBaseName,
                     description: t.description,
-                    status:t.courseStatus,
+                    status: t.courseStatus,
                     // picpath:t.picpath,
-                    userId:t.userId,
+                    userId: t.userId,
                 };
                 globalvm.ajaxPost("/courseBase/saveCourseBase", params, function (data) {
                     t.course = true;
@@ -83,29 +91,32 @@ var courseManage = new Vue({
          * 删除课程
          */
         deletCourseBase: function (event) {
-          var t = this;
-          var courseBaseId = $(event.currentTarget).attr("courseBaseId");
-          globalvm.ajaxGet("/courseBase/deletCourseBase", {id:courseBaseId}, function () {
-              t.initCourseList();
-          })
+            var t = this;
+            var courseBaseId = $(event.currentTarget).attr("courseBaseId");
+            globalvm.ajaxGet("/courseBase/deletCourseBase", {id: courseBaseId}, function () {
+                t.initCourseList();
+            })
         },
         /**
          * 获取选择课程的id，并调用获取课程目录的方法
          */
         obtainCourse: function (event) {
-          this.courseId = $(event.currentTarget).attr("courseId");
-          this.interCourse(this.courseId);
+            this.courseId = $(event.currentTarget).attr("courseId");
+            this.interCourse(this.courseId);
         },
         /**
          * 课程章节目录
          * @param event
          */
-        interCourse:function (courseId) {
+        interCourse: function (courseId) {
             var t = this;
             t.course = false;
             t.coursePlan = true;
             t.addCourseBase = false;
-            globalvm.ajaxGet("/coursePlan/findAllChapterOrderByOrderby", {courseId: courseId,parentId:null}, function (data) {
+            globalvm.ajaxGet("/coursePlan/findAllChapterOrderByOrderby", {
+                courseId: courseId,
+                parentId: null
+            }, function (data) {
                 t.byCourseIdList = data;
             })
         },
@@ -113,7 +124,7 @@ var courseManage = new Vue({
         /**
          * 返回课程列表
          */
-        returnCourseBase:function () {
+        returnCourseBase: function () {
             this.course = true;
             this.coursePlan = false;
             this.addCourseBase = false;
@@ -121,21 +132,21 @@ var courseManage = new Vue({
         /**
          * 添加课程章节
          */
-        addChapter:function () {
+        addChapter: function () {
             this.addCoursePlanView = true;
             this.coursePlan = false;
             this.initMyInfo();
         },
-        makeSureCoursePlan:function () {
-            var  t = this;
+        makeSureCoursePlan: function () {
+            var t = this;
             t.initMyInfo();
             t.findUserId();
             var params;
-            if (t.coursePlanName && t.coursePlanStatus && t.chapterDescription){
+            if (t.coursePlanName && t.coursePlanStatus && t.chapterDescription) {
                 params = {
-                    name:t.coursePlanName,
-                    description:t.chapterDescription,
-                    status:t.coursePlanStatus,
+                    name: t.coursePlanName,
+                    description: t.chapterDescription,
+                    status: t.coursePlanStatus,
                     userId: t.userId,
 
                 }
@@ -147,7 +158,7 @@ var courseManage = new Vue({
                 t.interCourse();
             })
         },
-        cancelEditCoursePlan:function () {
+        cancelEditCoursePlan: function () {
             this.addCoursePlanView = false;
             this.coursePlan = true;
         },
@@ -156,10 +167,10 @@ var courseManage = new Vue({
         /**
          * 删除课程章节
          */
-        deletChapter:function (event) {
+        deletChapter: function (event) {
             var t = this;
             var chapterId = $(event.currentTarget).attr("chapterId");
-            globalvm.ajaxGet("/coursePlan/deletChapter",{id:chapterId},function () {
+            globalvm.ajaxGet("/coursePlan/deletChapter", {id: chapterId}, function () {
                 t.interCourse(t.courseId);
             })
         },
@@ -167,14 +178,14 @@ var courseManage = new Vue({
         /**
          * 修改课程章节内容
          */
-        updateChapter:function (event) {
+        updateChapter: function (event) {
             this.coursePlan = false;
             this.updateCoursePlan = true;
         },
-        makeSureUpdateCoursePlan:function () {
+        makeSureUpdateCoursePlan: function () {
 
         },
-        cancelEditUpdateCoursePlan:function () {
+        cancelEditUpdateCoursePlan: function () {
             this.coursePlan = true;
             this.updateCoursePlan = false;
         },
@@ -182,10 +193,10 @@ var courseManage = new Vue({
         /**
          * 获取登录人id
          */
-        findUserId:function () {
+        findUserId: function () {
             var t = this;
             t.initMyInfo();
-            globalvm.ajaxGet("/user/findUserId",{name: t.currentUserName}, function (data) {
+            globalvm.ajaxGet("/user/findUserId", {name: t.currentUserName}, function (data) {
                 courseManage.userId = data.id;
             })
         },
@@ -201,17 +212,17 @@ var courseManage = new Vue({
         /**
          * 课程列表
          */
-        initCourseList:function () {
+        initCourseList: function () {
             var t = this;
             globalvm.ajaxGet("/courseBase/courseBaseList", {}, function (data) {
                 t.courseBaseMapList = data;
             });
         },
-        createCourse:function () {
+        createCourse: function () {
             this.initCourseList();
         },
 
-        selectCourseClick:function () {
+        selectCourseClick: function () {
             var t = this;
             var name = t.selectCourse;
             globalvm.ajaxGet("/courseBase/findByNameContaining", {name: name}, function (data) {
@@ -224,7 +235,6 @@ var courseManage = new Vue({
         this.initCourseList();
         //this.interCourse();
     },
-
 
 
 });

@@ -48,8 +48,24 @@ var globalvm = new Vue({
                 }
             }, function () {
             });
+        },
+        ajaxUploadFile: function (url, formData, callback) {
+            this.$http.post(startUrl + url, formData, {
+                emulateJSON: true,
+                headers: {Authorization: token, 'Content-Type': 'multipart/form-data'}
+            }).then(function (res) {
+                if (res.body.state == "success") {
+                    callback(res.body.data);
+                } else {
+                    alert(res.message);
+                }
+            }, function () {
+            });
+        },
+        outLogin: function () {
+            $.removeCookie("token");
+            window.location.href = "/learning";
         }
-
     }
 });
 var loading = new Vue({
