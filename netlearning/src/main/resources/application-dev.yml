@@ -26,7 +26,7 @@ spring:
 #    url: jdbc:mysql://127.0.0.1:3306/netlearning?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
     url: jdbc:mysql://127.0.0.1:3306/netlearning?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
     username: root
-    password: 123456
+    password: 123
 #    data-username: root
 #    data-password: root
   #序列化时，属性为NULL和""的都不序列化

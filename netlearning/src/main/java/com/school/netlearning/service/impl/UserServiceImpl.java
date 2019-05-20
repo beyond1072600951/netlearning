@@ -2,8 +2,7 @@ package com.school.netlearning.service.impl;
 
 import com.school.netlearning.mapper.UserMapper;
 import com.school.netlearning.pojo.User;
-import com.school.netlearning.repository.RoleRepository;
-import com.school.netlearning.repository.UserRepository;
+import com.school.netlearning.repository.*;
 import com.school.netlearning.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,8 +23,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
-    private UserMapper userMapper;
 
     @Override
 
@@ -80,9 +77,4 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByName(name);
     }
 
-    @Override
-    public List<User> testFind() {
-        List<User> userList = userMapper.testFind();
-        return userList;
-    }
 }

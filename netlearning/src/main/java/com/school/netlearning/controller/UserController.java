@@ -2,11 +2,12 @@ package com.school.netlearning.controller;
 
 import com.school.netlearning.Util.CurrentUserUtil;
 import com.school.netlearning.pojo.News;
+import com.school.netlearning.pojo.Post;
+import com.school.netlearning.pojo.Reply;
 import com.school.netlearning.pojo.User;
 import com.school.netlearning.result.Result;
 import com.school.netlearning.result.ResultUtil;
-import com.school.netlearning.service.NewsService;
-import com.school.netlearning.service.UserService;
+import com.school.netlearning.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,15 @@ public class UserController {
 
     @Autowired
     private NewsService newsService;
+
+    @Autowired
+    private PostService postService;
+
+    @Autowired
+    private ReplyService replyService;
+
+    @Autowired
+    private CourseBaseService courseBaseService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -66,8 +76,16 @@ public class UserController {
     public Result deletUser(Integer id) {
         userService.deletUserById(id);
         List<News> newsList = newsService.findByUserId(id);
+        List<Post> byUserId = postService.findByUserId(id);
+        List<Reply> byUserId1 = replyService.findByUserId(id);
         for (int i = 0; i < newsList.size(); i++) {
             newsService.deleteNewsById(newsList.get(i).getId());
+        }
+        for (int i = 0; i<byUserId.size(); i++){
+            postService.deletPostById(byUserId.get(i).getId());
+        }
+        for (int i = 0; i<byUserId1.size(); i++){
+            replyService.deletReply(byUserId1.get(i).getId());
         }
         Result result = ResultUtil.success();
         return result;

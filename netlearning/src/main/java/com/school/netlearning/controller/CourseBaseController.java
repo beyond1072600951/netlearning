@@ -51,7 +51,7 @@ public class CourseBaseController {
     public Result saveCourseBase(HttpServletRequest request, CourseBase courseBase){
         Integer currUserId = CurrentUserUtil.getUserId(request);
         courseBase.setUserId(currUserId);
-        courseBase.setPicpath("http://lixinzhong.top/images/dot.png");
+//        courseBase.setPicpath("http://lixinzhong.top/images/dot.png");
         CourseBase saveCourseBase = courseBaseService.saveCourseBase(courseBase);
         Result result = ResultUtil.success();
         return  result;

@@ -21,7 +21,8 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public Object uploadFile(MultipartFile multipartFile) throws Exception {
-        String fileName = "netlearing" + "/" + UUID.randomUUID().toString() + "/" + System.currentTimeMillis() + "." + StringUtils.substringAfterLast(multipartFile.getOriginalFilename(), ".");
+        String fileName = "netlearing" + "/" + UUID.randomUUID().toString() + "/" + System.currentTimeMillis() + "."
+                + StringUtils.substringAfterLast(multipartFile.getOriginalFilename(), ".");
         aliOSSTool.putObject(fileName, multipartFile.getBytes());
         //获取OSS完整路径
         System.out.println(this.getUrl(fileName));

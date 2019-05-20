@@ -1,7 +1,9 @@
 package com.school.netlearning.service.impl;
 
 import com.school.netlearning.pojo.Post;
+import com.school.netlearning.pojo.Reply;
 import com.school.netlearning.repository.PostRepository;
+import com.school.netlearning.repository.ReplyRepository;
 import com.school.netlearning.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ public class PostServiceImpl implements PostService{
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private ReplyRepository replyRepository;
 
     @Override
     public List<Post> findAllByOrderByIdDesc() {
@@ -35,7 +40,12 @@ public class PostServiceImpl implements PostService{
     @Override
     public void deletPostById(Integer id) {
         postRepository.deleteById(id);
+        List<Reply> allByPostIdOrderByIdDesc = replyRepository.findAllByPostIdOrderByIdDesc(id);
+        for (int i = 0; i<allByPostIdOrderByIdDesc.size(); i++){
+            replyRepository.deleteById(allByPostIdOrderByIdDesc.get(i).getId());
+        }
     }
+
 
     @Override
     public List<Post> findByUserId(Integer userId) {

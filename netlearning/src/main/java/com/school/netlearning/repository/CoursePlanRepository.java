@@ -18,5 +18,7 @@ public interface CoursePlanRepository extends JpaRepository<CoursePlan, Integer>
      */
     List<CoursePlan> findAllByParentIdOrderByOrderby(Integer parentId);
 
+    List<CoursePlan> findByCourseId(Integer courseId);
+
 
 }

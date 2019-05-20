@@ -15,6 +15,8 @@ var courseManage = new Vue({
         description: "",
         courseStatus: "",
 
+        fileName: "",
+
         courseId: "",
         coursePlanId: "",
         chapterId: "",
@@ -39,7 +41,10 @@ var courseManage = new Vue({
             var formData = new FormData();
             formData.append('upload', file.target.files[0]);
             globalvm.ajaxUploadFile("/file/upload", formData, function (data) {
+
                 console.log(data);
+                t.fileName=data;
+
             });
         },
         /**
@@ -63,8 +68,8 @@ var courseManage = new Vue({
                     name: t.courseBaseName,
                     description: t.description,
                     status: t.courseStatus,
-                    // picpath:t.picpath,
-                    userId: t.userId,
+                    picpath: t.fileName,
+                    userId: t.userId
                 };
                 globalvm.ajaxPost("/courseBase/saveCourseBase", params, function (data) {
                     t.course = true;
@@ -73,6 +78,7 @@ var courseManage = new Vue({
                     t.courseBaseName = "";
                     t.description = "";
                     t.courseStatus = "";
+                    t.picpath = "";
                 });
             } else {
 
@@ -84,7 +90,10 @@ var courseManage = new Vue({
         cancelEditCourseBase: function () {
             this.course = true;
             this.addCourseBase = false;
-            //this.initCourseList();
+            this.courseBaseName = "";
+            this.description = "";
+            this.courseStatus = "";
+            this.picpath = "";
         },
 
         /**
