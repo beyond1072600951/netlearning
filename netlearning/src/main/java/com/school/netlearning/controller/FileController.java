@@ -1,5 +1,6 @@
 package com.school.netlearning.controller;
 
+import com.school.netlearning.result.ResultUtil;
 import com.school.netlearning.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,6 @@ public class FileController {
      */
     @PostMapping(value = "/upload")
     public Object uploadFile(@RequestParam("upload") MultipartFile multipartFile) throws Exception {
-        return fileService.uploadFile(multipartFile);
+        return ResultUtil.success(fileService.uploadFile(multipartFile));
     }
 }

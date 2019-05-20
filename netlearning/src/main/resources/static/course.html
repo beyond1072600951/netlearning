@@ -37,7 +37,7 @@
         <div class="flex-wrap-course">
             <div v-for="course in courseBaseMapList" class="course-item" key="">
                 <div @click="obtainCourse($event)" v-bind:courseId="course.courseBase.id">
-                    <img :src="course.courseBase.picpath">
+                    <img style="width: 130px;" :src="course.courseBase.picpath">
                     <h4>{{course.courseBase.name}}</h4>
                     <h4>{{course.courseBase.description}}</h4>
                     <h5>{{course.name}}</h5>
@@ -75,7 +75,8 @@
                                          style="padding-top: 20px;">
                                             <span class="input-group-addon" style="width: 25%;">
                                                 <i class="now-ui-icons users_circle-08">课程图片</i>
-                                                <input type="file" class="form-control" ref="ln" v-model="picpath" @change="uploadFile">
+                                                <input type="file" class="form-control" ref="ln" v-model="picpath"
+                                                       @change="uploadFile">
                                             </span>
                                     </div>
                                     <div class="input-group form-group-no-border input-lg"
