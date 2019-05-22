@@ -33,7 +33,7 @@
         </h5>
     </div>
 </nav>
-<div class="table-responsive" style="height: 520px;background: #c6efda;" id="userManage">
+<div class="table-responsive" style="padding-bottom: 20px;background: #c6efda;" id="userManage">
     <dev v-show="show">
         <div>
             <input v-model="select" style="margin-top: 2px;margin-left: 15px;width: 260px;height: 30px;">
@@ -146,6 +146,17 @@
                                             </span>
                                         <input type="text" class="form-control"
                                                ref="pd" v-model="phone"/>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 10px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons text_caps-small">用户角色</i>
+                                            </span>
+                                        <select v-model="userRole" class="form-control" ref="pd"
+                                                style="width: 30%;height: 35px;">
+                                            <option value="0">普通用户</option>
+                                            <option value="1">管理员</option>
+                                        </select>
                                     </div>
                                     <div class="input-group form-group-no-border input-lg text-center"
                                          style="padding-top: 30px;">

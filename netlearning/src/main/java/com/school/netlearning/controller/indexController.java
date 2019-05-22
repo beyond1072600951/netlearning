@@ -25,9 +25,9 @@ public class indexController {
     public String course(Model model) {
         return "course";
     }
-    @RequestMapping("/statistics")
+    @RequestMapping("/courseRecord")
     public String statistics(Model model) {
-        return "statistics";
+        return "courseRecord";
     }
     @RequestMapping("/forum")
     public String forum(Model model) {

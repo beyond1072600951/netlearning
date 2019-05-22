@@ -47,4 +47,10 @@ public class CourseBaseServiceImpl implements CourseBaseService {
         List<CourseBase> courseBaseByNameContaining = courseBaseRepository.findByNameContaining(name);
         return courseBaseByNameContaining;
     }
+
+    @Override
+    public CourseBase findCourseBaseById(Integer id) {
+        CourseBase courseBaseById = courseBaseRepository.findCourseBaseById(id);
+        return courseBaseById;
+    }
 }

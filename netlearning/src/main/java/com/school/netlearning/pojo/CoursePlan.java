@@ -1,5 +1,6 @@
 package com.school.netlearning.pojo;
 
+
 import javax.persistence.*;
 
 @Entity
@@ -118,19 +119,4 @@ public class CoursePlan {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "CoursePlan{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", parentId=" + parentId +
-                ", level=" + level +
-                ", ptype=" + ptype +
-                ", description='" + description + '\'' +
-                ", timelength=" + timelength +
-                ", courseId=" + courseId +
-                ", orderby='" + orderby + '\'' +
-                ", status=" + status +
-                '}';
-    }
 }

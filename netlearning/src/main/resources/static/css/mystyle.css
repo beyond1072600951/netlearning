@@ -3,16 +3,31 @@
     justify-content: left;
     align-items: center;
     width: 100%;
-    padding: 20px 10px;
+    flex-wrap: wrap;
 }
 
 .course-item{
     padding:10px;
     border:1px solid black;
     margin: 20px;
-    cousor: pointer ;
+    cousor: pointer;
+    width:140px;
+    overflow: hidden;
+    cursor:pointer;
+    border-radius: 5px;
 }
 
+.limit-width{
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.bgi{
+    width: 100%;
+    height: 80px;
+    background-position: center !important;
+    background-size:cover !important;
+}
 .course-item:hover{
     background-color: rgb(160, 239, 218);
 }

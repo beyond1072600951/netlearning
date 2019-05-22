@@ -13,4 +13,6 @@ public interface CourseBaseService {
     public void deleteCourseBaseById(Integer id);//删除
 
     public List<CourseBase> findByNameContaining(String name);//搜索
+
+    public CourseBase findCourseBaseById(Integer id);
 }

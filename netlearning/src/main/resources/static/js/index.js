@@ -12,7 +12,7 @@ var navigation = new Vue({
                 window.location.href = "/learning/course";
             }
             if (2 == index) {
-                window.location.href = "/learning/statistics";
+                window.location.href = "/learning/courseRecord";
             }
             if (3 == index) {
                 window.location.href = "/learning/news";

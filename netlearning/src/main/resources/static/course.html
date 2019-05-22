@@ -27,7 +27,7 @@
         </div>
         <a id="menu-toggle" href="#" class=" ">&#9776;</a></div>
 </nav>
-<div class="table-responsive" style="height: 520px;background: #c6efda;" id="courseManage">
+<div class="table-responsive" style="padding-bottom: 20px;background: #c6efda;" id="courseManage">
     <dev v-show="course">
         <div>
             <input v-model="selectCourse" style="margin-top:2px;margin-left: 15px;width: 260px;height: 30px;">
@@ -37,28 +37,65 @@
         <div class="flex-wrap-course">
             <div v-for="course in courseBaseMapList" class="course-item" key="">
                 <div @click="obtainCourse($event)" v-bind:courseId="course.courseBase.id">
-                    <img style="width: 130px;" :src="course.courseBase.picpath">
-                    <h4>{{course.courseBase.name}}</h4>
-                    <h4>{{course.courseBase.description}}</h4>
-                    <h5>{{course.name}}</h5>
+                    <div class="bgi" :style="{background: 'url('+course.courseBase.picpath+')'}"></div>
+                    <!--<img style="width: 130px;" :src="course.courseBase.picpath">-->
+                    <h4 class="limit-width">{{course.courseBase.name}}</h4>
+                    <h4 class="limit-width">{{course.courseBase.description}}</h4>
+                    <h5 class="limit-width">{{course.name}}</h5>
                 </div>
                 <button @click="deletCourseBase($event)" v-bind:courseBaseId="course.courseBase.id">删除</button>
             </div>
         </div>
     </dev>
-    <div v-show="coursePlan" class="" style="padding-left: 100px;">
+    <div v-show="coursePlanList" class="" style="padding-left: 100px;">
         <button @click="returnCourseBase">返回课程</button>
         <button @click="addChapter">添加章节</button>
-        <div v-for="coursePlan in byCourseIdList">
-            <h2 v-if="coursePlan.parentId==undefined">{{coursePlan.name}}</h2>
-            <h4 v-if="coursePlan.parentId!=undefined">{{coursePlan.name}}</h4>
-            <div>
+        <div v-for="(coursePlan, index) in chapterList">
+            <div v-if="coursePlan.parentId==undefined">
+                <h4>第{{index+1}}章{{coursePlan.name}}</h4>
+                <button @click="addSection($event)" v-bind:chapterId="coursePlan.id">添加</button>
+            </div>
+            <div v-if="coursePlan.parentId!=undefined" >
+                <a><h5>{{coursePlan.name}}</h5></a>
+                <!--<div @click="addResources($event)" v-bind:sectionId="coursePlan.id">-->
+                    <!--<a><h5>{{coursePlan.name}}</h5></a>-->
+                <!--</div>-->
+
+            </div>
+            <!--<h4 v-if="coursePlan.parentId==undefined">{{coursePlan.name}}</h4>-->
+            <!--<h5 v-if="coursePlan.parentId!=undefined">{{coursePlan.name}}</h5>-->
+
                 <button @click="updateChapter($event)" v-bind:chapterId="coursePlan.id">编辑</button>
                 <button @click="deletChapter($event)" v-bind:chapterId="coursePlan.id">删除</button>
-            </div>
-            <!--</div>-->
         </div>
     </div>
+
+    <!--<div class="container-fluid" id="addResources" v-show="addResourcesView">-->
+        <!--<div class="row">-->
+            <!--<div class="col-sm-12">-->
+                <!--<div class="card">-->
+                    <!--<div class="card-block">-->
+                        <!--<h2 class="card-title" style="padding-top: 10px;padding-left: 10px;text-align: center;">-->
+                            <!--{{addResourcestitle}}</h2>-->
+                        <!--<div class="table-responsive">-->
+                            <!--<form class="form" method="" action="">-->
+                                <!--<div class="content" style="text-align: center;">-->
+                                    <!--<div class="input-group form-group-no-border input-lg"-->
+                                         <!--style="padding-top: 20px;">-->
+                                            <!--<span class="input-group-addon" style="width: 25%;">-->
+                                                <!--<i class="now-ui-icons users_circle-08">章节资源</i>-->
+                                                <!--<input type="file" class="form-control" ref="ln"  id="" v-model="picpath"-->
+                                                       <!--@change="uploadFile">-->
+                                            <!--</span>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</form>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
     <div class="container-fluid" id="editCourseBase" v-show="addCourseBase">
         <div class="row">
@@ -75,7 +112,7 @@
                                          style="padding-top: 20px;">
                                             <span class="input-group-addon" style="width: 25%;">
                                                 <i class="now-ui-icons users_circle-08">课程图片</i>
-                                                <input type="file" class="form-control" ref="ln" v-model="picpath"
+                                                <input type="file" class="form-control" ref="ln"  id="f" v-model="picpath"
                                                        @change="uploadFile">
                                             </span>
                                     </div>
@@ -131,17 +168,27 @@
         </div>
     </div>
 
-    <div class="container-fluid" id="addCoursePlan" v-show="addCoursePlanView">
+    <div class="container-fluid" id="addChapter" v-show="addChapterView">
         <div class="row">
             <!-- column -->
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-block">
                         <h2 class="card-title" style="padding-top: 10px;padding-left: 10px;text-align: center;">
-                            {{addCoursePlantitle}}</h2>
+                            {{addChapterTitle}}</h2>
                         <div class="table-responsive">
                             <form class="form" method="" action="">
                                 <div class="content" style="text-align: center;">
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">章节序号</i>
+                                            </span>
+                                        <select v-model="coursePlanOrder" class="form-control" ref="pd"
+                                                style="width: 30%;height: 35px;">
+                                            <option v-for = "chapterNum in chapterNumList" v-bind:value="chapterNum.id">{{chapterNum.chapterNum}}</option>
+                                        </select>
+                                    </div>
                                     <div class="input-group form-group-no-border input-lg"
                                          style="padding-top: 20px;">
                                             <span class="input-group-addon" style="width: 25%;">
@@ -158,14 +205,14 @@
                                                 <textarea cols="55" rows="5" v-model="chapterDescription"></textarea>
                                             </span>
                                     </div>
-                                    <div class="input-group form-group-no-border input-lg"
-                                         style="padding-top: 20px;">
-                                            <span class="input-group-addon" style="width: 25%;">
-                                                <i class="now-ui-icons users_circle-08">创建用户</i>
-                                                <input type="text" class="form-control" ref="ln"
-                                                       v-model="currentUserName" readonly>
-                                            </span>
-                                    </div>
+                                    <!--<div class="input-group form-group-no-border input-lg"-->
+                                         <!--style="padding-top: 20px;">-->
+                                            <!--<span class="input-group-addon" style="width: 25%;">-->
+                                                <!--<i class="now-ui-icons users_circle-08">创建用户</i>-->
+                                                <!--<input type="text" class="form-control" ref="ln"-->
+                                                       <!--v-model="currentUserName" readonly>-->
+                                            <!--</span>-->
+                                    <!--</div>-->
                                     <div class="input-group form-group-no-border input-lg"
                                          style="padding-top: 20px;">
                                             <span class="input-group-addon" style="width: 25%;">
@@ -180,10 +227,10 @@
                                     <div class="input-group form-group-no-border input-lg text-center"
                                          style="padding-top: 30px;">
                                         <a href="#" class="btn btn-primary btn-round btn-lg"
-                                           style="" v-on:click="makeSureCoursePlan">确 认</a>
+                                           style="" v-on:click="makeSureChapter">确 认</a>
                                         <a href="#" class="btn btn-primary btn-round btn-lg"
                                            style="margin-left: 347px;"
-                                           v-on:click="cancelEditCoursePlan">取 消</a>
+                                           v-on:click="cancelEditChapter">取 消</a>
                                     </div>
                                 </div>
                             </form>
@@ -194,17 +241,27 @@
         </div>
     </div>
 
-    <div class="container-fluid" id="editCoursePlan" v-show="updateCoursePlan">
+    <div class="container-fluid" id="addSection" v-show="addSectionView">
         <div class="row">
             <!-- column -->
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-block">
                         <h2 class="card-title" style="padding-top: 10px;padding-left: 10px;text-align: center;">
-                            {{updateCoursePlantitle}}</h2>
+                            {{addSectionTitle}}</h2>
                         <div class="table-responsive">
                             <form class="form" method="" action="">
                                 <div class="content" style="text-align: center;">
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">章节序号</i>
+                                            </span>
+                                        <select v-model="coursePlanOrder" class="form-control" ref="pd"
+                                                style="width: 30%;height: 35px;">
+                                            <option v-for = "chapterNum in chapterNumList" value="chapterNum.id">{{chapterNum.chapterNum}}</option>
+                                        </select>
+                                    </div>
                                     <div class="input-group form-group-no-border input-lg"
                                          style="padding-top: 20px;">
                                             <span class="input-group-addon" style="width: 25%;">
@@ -221,12 +278,69 @@
                                                 <textarea cols="55" rows="5" v-model="chapterDescription"></textarea>
                                             </span>
                                     </div>
+
                                     <div class="input-group form-group-no-border input-lg"
                                          style="padding-top: 20px;">
                                             <span class="input-group-addon" style="width: 25%;">
-                                                <i class="now-ui-icons users_circle-08">创建用户</i>
+                                                <i class="now-ui-icons users_circle-08">章节状态</i>
+                                            </span>
+                                        <select v-model="coursePlanStatus" class="form-control" ref="pd"
+                                                style="width: 30%;height: 35px;">
+                                            <option value="1">可用</option>
+                                            <option value="0">不可用</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                        <span class="input-group-addon" style="width: 25%;">
+                                            <i class="now-ui-icons users_circle-08">章节资源</i>
+                                            <input type="file" class="form-control" ref="ln" id="" v-model="resourcesUrl"
+                                                   @change="uploadSectionFile">
+                                        </span>
+                                    </div>
+
+                                        <div class="input-group form-group-no-border input-lg text-center"
+                                             style="padding-top: 30px;">
+                                            <a href="#" class="btn btn-primary btn-round btn-lg"
+                                               style="" v-on:click="makeSureSection">确 认</a>
+                                            <a href="#" class="btn btn-primary btn-round btn-lg"
+                                               style="margin-left: 347px;"
+                                               v-on:click="cancelEditSection">取 消</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid" id="editCoursePlan" v-show="updateCoursePlan">
+            <div class="row">
+                <!-- column -->
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-block">
+                        <h2 class="card-title" style="padding-top: 10px;padding-left: 10px;text-align: center;">
+                            {{updateCoursePlantitle}}</h2>
+                        <div class="table-responsive">
+                            <form class="form" method="" action="">
+                                <div class="content" style="text-align: center;">
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">章节名称</i>
                                                 <input type="text" class="form-control" ref="ln"
-                                                       v-model="currentUserName" readonly>
+                                                       v-model="coursePlan.name">
+                                            </span>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg"
+                                         style="padding-top: 20px;">
+                                            <span class="input-group-addon" style="width: 25%;">
+                                                <i class="now-ui-icons users_circle-08">章节介绍</i>
+                                                <!--<input type="text" class="form-control" ref="ln" v-model="chapterDescription">-->
+                                                <textarea cols="55" rows="5" v-model="coursePlan.description"></textarea>
                                             </span>
                                     </div>
                                     <div class="input-group form-group-no-border input-lg"
@@ -234,7 +348,7 @@
                                             <span class="input-group-addon" style="width: 25%;">
                                                 <i class="now-ui-icons users_circle-08">章节状态</i>
                                             </span>
-                                        <select v-model="coursePlanStatus" class="form-control" ref="pd"
+                                        <select v-model="coursePlan.status" class="form-control" ref="pd"
                                                 style="width: 30%;height: 35px;">
                                             <option value="1">可用</option>
                                             <option value="0">不可用</option>

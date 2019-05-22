@@ -60,6 +60,9 @@ public class User implements Serializable {
     @Column(name = "isreply")
     private String isreply;
 
+    @Column(name = "level")
+    private Integer level;
+
 
     //    @Null
     @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
@@ -165,8 +168,15 @@ public class User implements Serializable {
         this.roleList = roleList;
     }
 
+    public Integer getLevel() {
+        return level;
+    }
 
-//        public List<News> getNewsList() {
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    //        public List<News> getNewsList() {
 //        return newsList;
 //    }
 //

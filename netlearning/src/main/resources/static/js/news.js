@@ -47,6 +47,8 @@ var newsManage = new Vue({
             this.news = true;
             this.addNews = false;
             this.initNewsList();
+            this.newsName = "";
+            this.content = "";
         },
 
         deletNewsClick: function (event) {

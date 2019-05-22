@@ -12,12 +12,13 @@ import com.school.netlearning.service.FileService;
 import com.school.netlearning.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "courseBase")
@@ -52,12 +53,22 @@ public class CourseBaseController {
         Result result = ResultUtil.success(courseBaseMapList);
         return result;
     }
+    @GetMapping(value = "getUrl")
+    public CourseBase getPicUrl(CourseBase courseBase){
+        if (null != courseBase.getPicpath()){
+            try {
+                courseBase.setPicpath(fileService.getUrl(courseBase.getPicpath()).toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return courseBase;
+    }
 
     @PostMapping(value = "saveCourseBase")
     public Result saveCourseBase(HttpServletRequest request, CourseBase courseBase) {
         Integer currUserId = CurrentUserUtil.getUserId(request);
         courseBase.setUserId(currUserId);
-//        courseBase.setPicpath("http://lixinzhong.top/images/dot.png");
         CourseBase saveCourseBase = courseBaseService.saveCourseBase(courseBase);
         Result result = ResultUtil.success();
         return result;
@@ -73,6 +84,13 @@ public class CourseBaseController {
             map.put("name", user.getName());
             map.put("courseBase", byNameContaining.get(i));
             courseBaseMapList.add(map);
+            if (null != byNameContaining.get(i)) {
+                try {
+                    byNameContaining.get(i).setPicpath(fileService.getUrl(byNameContaining.get(i).getPicpath()).toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
         Result result = ResultUtil.success(courseBaseMapList);
         return result;

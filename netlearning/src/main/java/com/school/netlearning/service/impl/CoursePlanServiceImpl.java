@@ -42,4 +42,15 @@ public class CoursePlanServiceImpl implements CoursePlanService {
     public void deletCoursePlan(Integer id) {
         coursePlanRepository.deleteById(id);
     }
+
+    @Override
+    public CoursePlan findCoursePlanById(Integer id) {
+        CoursePlan coursePlanById = coursePlanRepository.findCoursePlanById(id);
+        return coursePlanById;
+    }
+
+    @Override
+    public void updateCoursePlan(String name, String description, Integer status, Integer id) {
+        coursePlanRepository.update(name, description, status, id);
+    }
 }

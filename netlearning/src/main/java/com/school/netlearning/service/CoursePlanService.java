@@ -23,4 +23,8 @@ public interface CoursePlanService {
     public CoursePlan addCoursePlan(CoursePlan coursePlan);
 
     public void deletCoursePlan(Integer id);
+
+    public CoursePlan findCoursePlanById(Integer id);
+
+    public void updateCoursePlan(String name, String description, Integer status, Integer id);
 }

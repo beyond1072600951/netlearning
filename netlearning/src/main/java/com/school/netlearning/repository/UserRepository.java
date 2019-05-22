@@ -28,9 +28,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findByName(String name);
 
-    /**删除用户
-     *
-     */
+
 //    @Modifying
 //    @Query("UPDATE User SET userName = :userName, sex = :sex, age = :age WHERE id = :id")
 //    @Query("UPDATE user u SET u.user_name = :userName, u.sex = :sex, u.age = :age WHERE u.id = :id")

@@ -1,5 +1,7 @@
 package com.school.netlearning.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -22,6 +24,7 @@ public class CourseRecord {
     private Integer coursePlanId;
 
     @Column(name = "record_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date recordTime;
 
     public Integer getId() {

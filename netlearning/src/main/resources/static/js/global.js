@@ -54,7 +54,6 @@ var globalvm = new Vue({
                 emulateJSON: true,
                 headers: {Authorization: token, 'Content-Type': 'multipart/form-data'}
             }).then(function (res) {
-                console.log(res);
                 if (res.body.state == "success") {
                     callback(res.body.data);
                 } else {

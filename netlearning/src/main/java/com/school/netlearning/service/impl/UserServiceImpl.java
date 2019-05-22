@@ -33,7 +33,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addUser(User user) {
-        user.setPassWord(bCryptPasswordEncoder.encode(user.getPassWord()));
+        if (user.getLevel() == 1){
+            user.setPassWord(bCryptPasswordEncoder.encode(user.getPassWord()));
+        }
         User save = userRepository.save(user);
         return save;
     }
@@ -49,8 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updataIsReply(Integer id, String isreply) {
-        Optional<User> byId = userRepository.findById(id);
-        User user = byId.get();
+        User user = userRepository.findUserById(id);
         user.setIsreply(isreply);
         User save = userRepository.save(user);
         return save;

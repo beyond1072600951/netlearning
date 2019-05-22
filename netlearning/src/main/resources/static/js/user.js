@@ -7,7 +7,7 @@ var userManage = new Vue({
 
         show: true,
         addView: false,
-        addtitle: "添加学生",
+        addtitle: "添加用户",
 
         id:"",
         userName: "",
@@ -18,6 +18,7 @@ var userManage = new Vue({
         ispost: "1",
         isreply: "1",
         select: "",
+        userRole:"",
 
         currentUserName:"admin"
     },
@@ -30,7 +31,7 @@ var userManage = new Vue({
         makeSure: function () {
             var t = this;
             var params;
-            if (t.userName && t.password && t.name && t.education && t.phone) {
+            if (t.userName && t.password && t.name && t.education && t.phone && t.userRole) {
                 params = {
                     userName: t.userName,
                     passWord: t.password,
@@ -38,7 +39,8 @@ var userManage = new Vue({
                     education: t.education,
                     phone: t.phone,
                     ispost: t.ispost,
-                    isreply: t.isreply
+                    isreply: t.isreply,
+                    level: t.userRole,
                 };
                 globalvm.ajaxPost("/user/saveUser", params, function (data) {
                     t.show = true;
@@ -58,6 +60,10 @@ var userManage = new Vue({
             t.show = true;
             t.addView = false;
             t.initList();
+            t.userName = "";
+            t.password = "";
+            t.name = "";
+            t.phone = "";
         },
         deletClick: function (event) {
             var t = this;

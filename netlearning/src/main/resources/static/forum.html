@@ -26,7 +26,7 @@
         </div>
         <a id="menu-toggle" href="#" class=" ">&#9776;</a></div>
 </nav>
-<div class="table-responsive" style="height: 520px;background: #c6efda;" id="forumManage">
+<div class="table-responsive" style="padding-bottom: 20px;background: #c6efda;" id="forumManage">
     <dev v-show="postView">
         <div>
             <input v-model="selectPost" style="margin-top:2px;margin-left: 15px;width: 260px;height: 30px;">
@@ -37,9 +37,9 @@
             <div v-for="post in postMapList" class="course-item" key="">
                 <div @click="obtainReply($event)" v-bind:postId="post.post.id">
                     <h4>{{post.name}}</h4>
-                    <h5>{{post.post.title}}</h5>
+                    <a><h5>{{post.post.title}}</h5>
                     <h6>{{post.post.content}}</h6>
-                    <h7>{{post.post.time}}</h7>
+                    <h7>{{post.post.time}}</h7></a>
                 </div>
                 <button @click="deletPost($event)" v-bind:postId="post.post.id">删除</button>
             </div>
