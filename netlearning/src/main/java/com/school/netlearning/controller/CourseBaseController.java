@@ -54,15 +54,15 @@ public class CourseBaseController {
         return result;
     }
     @GetMapping(value = "getUrl")
-    public CourseBase getPicUrl(CourseBase courseBase){
-        if (null != courseBase.getPicpath()){
-            try {
-                courseBase.setPicpath(fileService.getUrl(courseBase.getPicpath()).toString());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    public String getPicUrl(String path){
+        //if (null != courseBase.getPicpath()){
+        String str=null;
+        try {
+            str =fileService.getUrl(path).toString();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return courseBase;
+        return str;
     }
 
     @PostMapping(value = "saveCourseBase")

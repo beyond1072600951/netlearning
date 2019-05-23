@@ -30,11 +30,11 @@ var userManage = new Vue({
         },
         makeSure: function () {
             var t = this;
+            var flag;
             var params;
             if (t.userName && t.password && t.name && t.education && t.phone && t.userRole) {
                 params = {
                     userName: t.userName,
-                    passWord: t.password,
                     name: t.name,
                     education: t.education,
                     phone: t.phone,
@@ -42,17 +42,25 @@ var userManage = new Vue({
                     isreply: t.isreply,
                     level: t.userRole,
                 };
-                globalvm.ajaxPost("/user/saveUser", params, function (data) {
-                    t.show = true;
-                    t.addView = false;
-                    t.initList();
-                    t.userName = "";
-                    t.password = "";
-                    t.name = "";
-                    t.phone = "";
+                globalvm.ajaxGet("/user/verificationUserName", {userName: t.userName}, function (data) {
+                    flag = data;
+                    if (flag == 1){
+                        globalvm.ajaxPost("/user/saveUser", params, function (data) {
+                            t.show = true;
+                            t.addView = false;
+                            t.initList();
+                            t.userName = "";
+                            t.password = "";
+                            t.name = "";
+                            t.phone = "";
+                        });
+                    } else {
+                        alert("该帐号已被使用！！");
+                        t.userName = "";
+                    }
                 });
             } else {
-
+                alert("请填写所有信息！！");
             }
         },
         cancelEdit: function () {
@@ -61,7 +69,6 @@ var userManage = new Vue({
             t.addView = false;
             t.initList();
             t.userName = "";
-            t.password = "";
             t.name = "";
             t.phone = "";
         },

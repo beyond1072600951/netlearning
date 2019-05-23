@@ -14,7 +14,6 @@ var courseManage = new Vue({
         courseBaseName: "",
         description: "",
         courseStatus: "",
-
         fileName: "",
 
         courseId: "",
@@ -22,7 +21,6 @@ var courseManage = new Vue({
         chapterId: "",
         coursePlanList: false,
         chapterList: [],
-        coursePlanOrder:"",
         chapterNumList:[],
         //sectionList:[],
         // coursePlanSectionList:[],
@@ -32,14 +30,15 @@ var courseManage = new Vue({
         coursePlanName: "",
         chapterDescription: "",
         coursePlanStatus: "",
+        coursePlanOrder:"",
 
         addSectionView: false,
         addSectionTitle: "添加小节",
+        resourcesUrl:"",
 
         updateCoursePlantitle: "编辑课程章节",
         updateCoursePlan: false,
         coursePlan:"",
-        resourcesUrl:""
 
     },
     methods: {
@@ -89,7 +88,7 @@ var courseManage = new Vue({
                     t.picpath = "";
                 });
             } else {
-
+                alert("请填写所有信息！！");
             }
         },
         /**
@@ -174,18 +173,19 @@ var courseManage = new Vue({
                     description: t.chapterDescription,
                     status: t.coursePlanStatus,
                     courseId: t.courseId,
-                    //orderby: t.coursePlanOrder,
+                    orderby: t.coursePlanOrder,
                 }
+                globalvm.ajaxPost("/coursePlan/addCoursePlan", params, function () {
+                    t.addChapterView = false;
+                    t.coursePlanList = true;
+                    t.interChapter(t.courseId);
+                    t.coursePlanName = "";
+                    t.chapterDescription = "";
+                    t.coursePlanStatus = "";
+                })
+            } else {
+                alert("请填写所有信息！！");
             }
-
-            globalvm.ajaxPost("/coursePlan/addCoursePlan", params, function () {
-                t.addChapterView = false;
-                t.coursePlanList = true;
-                t.interChapter(t.courseId);
-                t.coursePlanName = "";
-                t.chapterDescription = "";
-                t.coursePlanStatus = "";
-            })
         },
         cancelEditChapter: function () {
             this.addChapterView = false;
@@ -213,7 +213,7 @@ var courseManage = new Vue({
         addSection: function (event) {
             var t = this;
             t.addSectionView = true;
-            t.coursePlan = false;
+            t.coursePlanList = false;
             t.parentId = $(event.currentTarget).attr("chapterId");
             globalvm.ajaxGet("/chapterNum/chapterNumList", {level: 2}, function (data) {
                 t.chapterNumList = data;
@@ -228,24 +228,25 @@ var courseManage = new Vue({
                     description: t.chapterDescription,
                     status: t.coursePlanStatus,
                     courseId: t.courseId,
-                    //orderby: t.coursePlanOrder,
+                    orderby: t.coursePlanOrder,
                     parentId: t.parentId,
                     url: t.resourcesUrl,
                 }
+                globalvm.ajaxPost("/coursePlan/addCoursePlan", params, function () {
+                    t.addSectionView = false;
+                    t.coursePlanList = true;
+                    t.interChapter(t.courseId);
+                    t.coursePlanName = "";
+                    t.chapterDescription = "";
+                    t.coursePlanStatus = "";
+                })
+            } else {
+                alert("请填写所有信息！！");
             }
-
-            globalvm.ajaxPost("/coursePlan/addCoursePlan", params, function () {
-                t.addSectionView = false;
-                t.coursePlan = true;
-                t.interChapter(t.courseId);
-                t.coursePlanName = "";
-                t.chapterDescription = "";
-                t.coursePlanStatus = "";
-            })
         },
         cancelEditSection: function () {
             this.addSectionView = false;
-            this.coursePlan = true;
+            this.coursePlanList = true;
             this.coursePlanName = "";
             this.chapterDescription = "";
             this.coursePlanStatus = "";

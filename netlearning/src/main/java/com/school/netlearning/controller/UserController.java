@@ -8,6 +8,7 @@ import com.school.netlearning.pojo.User;
 import com.school.netlearning.result.Result;
 import com.school.netlearning.result.ResultUtil;
 import com.school.netlearning.service.*;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -102,6 +103,19 @@ public class UserController {
     public Result findUserId(String name) {
         User byName = userService.findByName(name);
         Result result = ResultUtil.success(byName);
+        return result;
+    }
+
+    @GetMapping(value = "verificationUserName")
+    public Result verificationUserName(String userName){
+        List<User> byUserName = userService.findAllByUserName(userName);
+        Integer flag = 0;
+        if (byUserName.size()  == 0){
+            flag = 1;
+        }else {
+            flag = 0;
+        }
+        Result result = ResultUtil.success(flag);
         return result;
     }
 

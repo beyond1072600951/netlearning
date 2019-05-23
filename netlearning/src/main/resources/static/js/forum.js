@@ -44,7 +44,7 @@ var forumManage = new Vue({
                     t.postContent = "";
                 });
             }else{
-
+                alert("请填写所有信息！！");
             }
         },
         cancelEditPost: function () {
@@ -96,7 +96,7 @@ var forumManage = new Vue({
                     t.replyContent = "";
                 });
             }else{
-
+                alert("请填写所有信息！！");
             }
         },
         cancelEditReply: function () {

@@ -52,11 +52,11 @@
         <button @click="addChapter">添加章节</button>
         <div v-for="(coursePlan, index) in chapterList">
             <div v-if="coursePlan.parentId==undefined">
-                <h4>第{{index+1}}章{{coursePlan.name}}</h4>
+                <h4>第{{coursePlan.orderby}}章{{coursePlan.name}}</h4>
                 <button @click="addSection($event)" v-bind:chapterId="coursePlan.id">添加</button>
             </div>
             <div v-if="coursePlan.parentId!=undefined" >
-                <a><h5>{{coursePlan.name}}</h5></a>
+                <a><h5>第{{coursePlan.orderby}}节{{coursePlan.name}}</h5></a>
                 <!--<div @click="addResources($event)" v-bind:sectionId="coursePlan.id">-->
                     <!--<a><h5>{{coursePlan.name}}</h5></a>-->
                 <!--</div>-->
@@ -186,7 +186,7 @@
                                             </span>
                                         <select v-model="coursePlanOrder" class="form-control" ref="pd"
                                                 style="width: 30%;height: 35px;">
-                                            <option v-for = "chapterNum in chapterNumList" v-bind:value="chapterNum.id">{{chapterNum.chapterNum}}</option>
+                                            <option v-for = "chapterNum in chapterNumList" v-bind:value="chapterNum.chapterValue">{{chapterNum.chapterNum}}</option>
                                         </select>
                                     </div>
                                     <div class="input-group form-group-no-border input-lg"
@@ -259,7 +259,7 @@
                                             </span>
                                         <select v-model="coursePlanOrder" class="form-control" ref="pd"
                                                 style="width: 30%;height: 35px;">
-                                            <option v-for = "chapterNum in chapterNumList" value="chapterNum.id">{{chapterNum.chapterNum}}</option>
+                                            <option v-for = "chapterNum in chapterNumList" v-bind:value="chapterNum.chapterValue">{{chapterNum.chapterNum}}</option>
                                         </select>
                                     </div>
                                     <div class="input-group form-group-no-border input-lg"

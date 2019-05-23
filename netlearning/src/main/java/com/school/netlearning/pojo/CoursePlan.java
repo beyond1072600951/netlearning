@@ -39,6 +39,9 @@ public class CoursePlan {
     @Column(name = "status")
     private Integer status;
 
+    @Column(name = "url")
+    private String url;
+
     public Integer getId() {
         return id;
     }
@@ -119,4 +122,11 @@ public class CoursePlan {
         this.status = status;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

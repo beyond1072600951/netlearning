@@ -20,7 +20,8 @@ public interface UserService {
 
     public User findByName(String name);
 
-
     public  List<User> findByNameContaining(String userName);
+
+    public List<User> findAllByUserName(String userName);
 
 }

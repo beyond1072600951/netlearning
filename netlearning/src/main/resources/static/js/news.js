@@ -40,7 +40,7 @@ var newsManage = new Vue({
                     t.content = "";
                 });
             } else {
-
+                alert("请填写所有信息！！");
             }
         },
         cancelEditNews: function () {

@@ -28,6 +28,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findByName(String name);
 
+    List<User> findAllByUserName(String UserName);
+
 
 //    @Modifying
 //    @Query("UPDATE User SET userName = :userName, sex = :sex, age = :age WHERE id = :id")
